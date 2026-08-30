@@ -1,22 +1,44 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="data:,">
-  <title>Pretext 3D</title>
-  <link rel="stylesheet" href="./styles.css">
-</head>
-<body>
-  <main class="app" id="app">
-    <div class="scene-layer" id="scene-layer"></div>
-    <div class="copy-layer" id="copy-layer"></div>
-    <div class="scrub-track">
-      <div class="scrub-fill" id="scrub-fill"></div>
-    </div>
-    <div class="status-chip" id="status-chip">Loading model…</div>
-  </main>
-
-  <script type="module" src="./main.mjs"></script>
-</body>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="一间可环绕漫游的复古书房卧室。" />
+    <title>归栖 · 3D Study Room</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <canvas id="room" aria-label="可交互的 3D 复古书房卧室"></canvas>
+      <div class="grain"></div>
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="归栖首页"><span>归</span>栖</a>
+        <p>PRIVATE ROOM / 01</p>
+        <button id="sound" type="button" aria-pressed="false">AMBIENCE <i></i></button>
+      </header>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="kicker">A TINY UNIVERSE · 2026</p>
+        <h1 id="page-title">一间，<br /><em>慢下来</em>的房间。</h1>
+        <p class="summary">书、植物与光在这里各自生长。拖拽画面，从每一个角度进入这间复古书房卧室。</p>
+        <button class="explore" id="explore" type="button"><span>开始漫游</span><b>↓</b></button>
+      </section>
+      <aside class="controls" aria-label="场景操作说明">
+        <span class="mouse-icon"></span><span>DRAG TO ORBIT</span><span class="dot">·</span><span>SCROLL TO ZOOM</span>
+      </aside>
+      <nav class="view-nav" aria-label="镜头预设">
+        <button class="active" data-view="overview" type="button"><i></i>全景</button>
+        <button data-view="reading" type="button"><i></i>阅读角</button>
+        <button data-view="desk" type="button"><i></i>工作台</button>
+      </nav>
+      <section class="spotlight" id="spotlight" aria-live="polite">
+        <button id="close-spotlight" type="button" aria-label="关闭物件介绍">×</button>
+        <p id="spotlight-index">01 / ROOM NOTE</p>
+        <h2 id="spotlight-title">一间有呼吸的房间</h2>
+        <p id="spotlight-copy">点击发光的圆点，发现藏在房间里的小细节。</p>
+      </section>
+      <div class="loader" id="loader"><div><strong>归栖</strong><span>正在点亮房间</span><i></i></div></div>
+    </main>
+    <script type="module" src="./main.mjs"></script>
+  </body>
 </html>
