@@ -3,42 +3,154 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="一间可环绕漫游的复古书房卧室。" />
-    <title>归栖 · 3D Study Room</title>
+    <meta name="description" content="陈璐 Grace 的像素桌面个人工作室。" />
+    <title>陈璐 Grace — My Desktop</title>
     <link rel="icon" href="data:," />
+    <script type="importmap">
+      { "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+      }}
+    </script>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main id="app">
-      <canvas id="room" aria-label="可交互的 3D 复古书房卧室"></canvas>
-      <div class="grain"></div>
-      <header class="topbar">
-        <a class="brand" href="#" aria-label="归栖首页"><span>归</span>栖</a>
-        <p>PRIVATE ROOM / 01</p>
-        <button id="sound" type="button" aria-pressed="false">AMBIENCE <i></i></button>
+      <section class="entry-gate" id="entry-gate" aria-label="进入小房间">
+        <button class="cat-door" id="cat-door" type="button" aria-label="点击小猫进入小房间">
+          <img src="./assets/thinking-cat.png" alt="戴花朵发饰的黑色小猫" />
+          <span>CLICK THE CAT TO ENTER</span>
+        </button>
+      </section>
+
+      <header class="desktop-bar">
+        <a class="brand" href="#home">猫猫.</a>
+        <nav aria-label="主导航">
+          <a href="#home">HOME</a><a href="#experience">EXPERIENCE</a><a href="#work">WORK</a><a href="#interests">OFF CLOCK</a>
+        </nav>
+        <button class="chat-trigger" data-open-contact type="button">TALK TO ME ↗</button>
       </header>
-      <section class="intro" aria-labelledby="page-title">
-        <p class="kicker">A TINY UNIVERSE · 2026</p>
-        <h1 id="page-title">一间，<br /><em>慢下来</em>的房间。</h1>
-        <p class="summary">书、植物与光在这里各自生长。拖拽画面，从每一个角度进入这间复古书房卧室。</p>
-        <button class="explore" id="explore" type="button"><span>开始漫游</span><b>↓</b></button>
+
+      <section class="room-stage" id="home" aria-labelledby="home-title">
+        <canvas id="room" aria-label="陈璐 Grace 的可交互 3D 小屋"></canvas>
+        <div class="pixel-sky" aria-hidden="true"></div>
+        <aside class="desktop-rail" aria-label="首页快捷入口">
+          <a href="#home"><b>01</b><span>HOME</span></a>
+          <a href="#experience"><b>02</b><span>LOG</span></a>
+          <a href="#work"><b>03</b><span>WORK</span></a>
+          <a href="#interests"><b>04</b><span>PLAY</span></a>
+        </aside>
+        <button class="home-profile-trigger" data-open-home-dialog type="button">OPEN PROFILE <b>↗</b></button>
+        <nav class="home-social-rail" aria-label="陈璐 Grace 的自媒体主页">
+          <a href="https://www.xiaohongshu.com/user/profile/5e36a36b00000000010007f6?xsec_token=YB2ezTjtfaXMNilwLa8tlQcX4E04qTpCMDRHtqZZYo5kA=&xsec_source=app_share&xhsshare=WeixinSession&appuid=5e36a36b00000000010007f6&apptime=1787883268&share_id=1541c24b754a42988ecaaeb8fb65dbe5" target="_blank" rel="noopener noreferrer" aria-label="打开小红书主页"><img src="./assets/social/handdrawn/8f38d228-1856-4b9f-a825-c433cfa6d7bc.png" alt="" /><span>小红书</span></a>
+          <a href="https://m.bilibili.com/space/21232205?plat_id=1&share_from=space&share_medium=iphone&share_plat=ios&share_session_id=627F5DCD-185E-409A-A76D-1FF5727BCEEC&share_source=WEIXIN&share_tag=s_i&spmid=main.space.0.0&timestamp=1787883242&unique_k=A6T1nqm" target="_blank" rel="noopener noreferrer" aria-label="打开哔哩哔哩主页"><img src="./assets/social/handdrawn/7b3012f4-f91a-4588-963d-3f292df13be1.png" alt="" /><span>哔哩哔哩</span></a>
+          <a href="https://mp.weixin.qq.com/s/07TYbQ6aKJ_FYveedpFbBw" target="_blank" rel="noopener noreferrer" aria-label="打开公众号文章"><img src="./assets/social/handdrawn/8e2b3f2e-1713-4ce6-9887-42dd4efe3714.png" alt="" /><span>公众号</span></a>
+          <a href="https://www.xiaoyuzhoufm.com/podcast/67028da5edf7bf2b61f6a78f?s=eyJ1IjogIjY1ZGY1OWJhZWRjZTY3MTA0YTQzNDVmOSJ9" target="_blank" rel="noopener noreferrer" aria-label="打开小宇宙播客"><img src="./assets/social/handdrawn/99eb1a8f-845c-4d21-b0a1-fe284ad620f6.png" alt="" /><span>小宇宙</span></a>
+          <a href="https://www.douban.com/people/lulumaomaolulu/?*i=8139569SzRhIo" target="_blank" rel="noopener noreferrer" aria-label="打开豆瓣主页"><img src="./assets/social/handdrawn/cf5daba8-e756-4fd7-a6ee-a49488445a7d.png" alt="" /><span>豆瓣</span></a>
+        </nav>
+        <section class="hero-window home-dialog window" id="home-dialog" aria-labelledby="home-title" hidden>
+          <div class="window-bar"><span>WELCOME.EXE</span><button data-close-home-dialog type="button" aria-label="关闭窗口">×</button></div>
+          <div class="hero-window-body">
+            <p class="eyebrow">01 / ABOUT · 陈璐 / 猫猫</p>
+            <h1 id="home-title">陈璐<br /><em>CATCAT</em></h1>
+            <p>AI 创业者 &amp; 内容创作者。设计 × 心理 × AI：用理性设计产品，用内容连接人。</p>
+            <div class="tag-row"><button data-bot-question="我在做什么？" type="button">AI 创业</button><button data-bot-question="我有哪些代表作品？" type="button">内容创作</button><button data-bot-question="最近在看什么？" type="button">认知科学</button></div>
+            <a class="pixel-button" href="#experience">OPEN ARCHIVE <b>→</b></a>
+          </div>
+        </section>
+        <p class="scene-hint">DRAG THE ROOM · SCROLL TO EXPLORE ↓</p>
+        <footer class="stage-status"><span>STATUS: ROOM ONLINE</span><span id="status-copy">READY TO EXPLORE</span></footer>
       </section>
-      <aside class="controls" aria-label="场景操作说明">
-        <span class="mouse-icon"></span><span>DRAG TO ORBIT</span><span class="dot">·</span><span>SCROLL TO ZOOM</span>
-      </aside>
-      <nav class="view-nav" aria-label="镜头预设">
-        <button class="active" data-view="overview" type="button"><i></i>全景</button>
-        <button data-view="reading" type="button"><i></i>阅读角</button>
-        <button data-view="desk" type="button"><i></i>工作台</button>
-      </nav>
-      <section class="spotlight" id="spotlight" aria-live="polite">
-        <button id="close-spotlight" type="button" aria-label="关闭物件介绍">×</button>
-        <p id="spotlight-index">01 / ROOM NOTE</p>
-        <h2 id="spotlight-title">一间有呼吸的房间</h2>
-        <p id="spotlight-copy">点击发光的圆点，发现藏在房间里的小细节。</p>
+
+      <section class="desktop-section" id="experience" aria-labelledby="experience-title">
+        <div class="section-number">02</div>
+        <header class="section-heading"><p>PERSONAL_LOG / EXPERIENCE</p><h2 id="experience-title">经历不是直线，<br />是不断切换的创作现场。</h2><span class="section-stamp">02 / OPEN LOG</span></header>
+        <div class="desktop-workspace experience-workspace">
+          <aside class="window system-window"><div class="window-bar"><span>SYSTEM_STATUS</span><button type="button" aria-label="关闭窗口">×</button></div><div><p>CREATIVE MODE</p><strong>ONLINE</strong><span>创业 / 内容 / 设计</span><i><b></b></i><small>SYNCED WITH GRACE.DESK</small></div></aside>
+          <div class="window archive-window">
+            <div class="window-bar"><span>EXPERIENCE_LOG.TXT</span><button type="button" aria-label="最小化窗口">—</button><button type="button" aria-label="关闭窗口">×</button></div>
+          <div class="filter-row" role="group" aria-label="经历分类"><button class="active" type="button">ALL</button><button type="button">FILM</button><button type="button">STARTUP</button><button type="button">TALK</button><button type="button">HACKATHON</button></div>
+            <div class="timeline">
+              <article class="company-entry" data-type="startup" data-detail="上海量元涌现人工智能科技有限公司是一支上海与新加坡双城协作的跨学科 AI+企业服务团队。我作为创始人，主导 ToB 产品设计与用户体验，用设计思维推动技术落地。"><time>NOW</time><div><span class="label green">STARTUP</span><h3>上海量元涌现人工智能科技有限公司 / 创始人</h3><p>AI + 企业服务，主导 ToB 产品设计与用户体验。</p><div class="company-card"><img src="./assets/liangyuan-logo.png" alt="量元涌现公司 Logo" /><div class="company-actions"><a class="company-action" href="https://liangyuanai.com" target="_blank" rel="noopener noreferrer">查看官网 ↗</a><button class="company-action" data-company-detail="about" type="button">关于我们</button><button class="company-action" data-company-detail="partner" type="button">合伙人</button><a class="company-action" href="https://mp.weixin.qq.com/s/QPYtpmxQCiZJ-BqcqXl1PQ" target="_blank" rel="noopener noreferrer">名字的由来 ↗</a></div></div></div></article>
+              <article class="podcast-entry" data-type="talk" data-detail="播客《不止一百种声音》已访谈 200+ 位嘉宾，覆盖 40+ 种人生话题；同时持续输出 AI 工具实测与创业思考。"><time>200+</time><div><span class="label orange">TALK</span><h3>《不止一百种声音》</h3><p>小宇宙《不止一百种声音》电台主播。</p><div class="podcast-card"><img src="./assets/social/handdrawn/99eb1a8f-845c-4d21-b0a1-fe284ad620f6.png" alt="小宇宙 Logo" /><div class="podcast-actions"><a class="podcast-action" href="https://www.xiaoyuzhoufm.com/podcast/67028da5edf7bf2b61f6a78f?s=eyJ1IjogIjY1ZGY1OWJhZWRjZTY3MTA0YTQzNDVmOSJ9" target="_blank" rel="noopener noreferrer">点击收听 ↗</a><button class="podcast-action" data-podcast-detail type="button">关于播客</button></div></div></div></article>
+              <article data-type="hackathon" data-detail="从工业设计到机械工程大赛一等奖，再到黑客松和 AIGC 实验项目，我持续在洞察、原型与叙事之间转换。"><time>LAB</time><div><span class="label blue">HACKATHON</span><h3>设计与实验项目</h3><p>把问题变成可体验、可讨论的原型。</p></div></article>
+              <article data-type="film" data-detail="我跨校辅修应用心理学，关注认知神经科学与脑科学，并推进神经科学方向的论文研究。理解人如何思考和决策，是我做产品的底层武器。"><time>STUDY</time><div><span class="label">RESEARCH</span><h3>设计 × 心理 × AI</h3><p>以认知科学理解人，再回到产品现场。</p></div></article>
+            </div>
+          </div>
+        </div>
       </section>
-      <div class="loader" id="loader"><div><strong>归栖</strong><span>正在点亮房间</span><i></i></div></div>
+
+      <section class="desktop-section work-section" id="work" aria-labelledby="work-title">
+        <div class="section-number">03</div>
+        <header class="section-heading"><p>SELECTED_WORK / FOLDER VIEW</p><h2 id="work-title">把想法做成<br />可以被看见的东西。</h2><span class="section-stamp">03 / PROJECTS</span></header>
+        <div class="work-layout">
+          <div class="window folder-window">
+            <div class="window-bar"><span>/WORKS</span><button type="button" aria-label="关闭窗口">×</button></div>
+            <div class="filter-row work-filter" role="group" aria-label="作品分类"><button class="active" data-work-filter="all" type="button">ALL</button><button data-work-filter="hackathon" type="button">HACKATHON</button><button data-work-filter="pdf" type="button">PDF</button></div>
+            <div class="folder-grid">
+              <button class="folder-card" data-work-type="hackathon" data-detail="量元涌现 AI 招聘软件。负责产品设计，用面向企业的体验路径连接岗位、人才和决策。" type="button"><i></i><span>TALENTMAP</span><small>PRODUCT DESIGN · 量元涌现</small></button>
+              <button class="folder-card" data-work-type="hackathon" data-detail="「OMO」记忆学习 App。负责前端开发与网页设计，将学习过程组织为可交互的记忆体验。" type="button"><i></i><span>OMO</span><small>HACKATHON · FRONTEND</small></button>
+              <button class="folder-card" data-work-type="pdf" data-detail="「容医」智能医疗系统。服务设计与用户研究，梳理医疗场景中的真实需求与服务旅程。" type="button"><i></i><span>容医</span><small>SERVICE DESIGN · UX RESEARCH</small></button>
+              <button class="folder-card" data-work-type="pdf" data-detail="视频剪辑、品牌视觉与海报设计，为企业宣传建立清晰、可识别的视觉表达。" type="button"><i></i><span>BRAND VISUAL</span><small>VIDEO · POSTER · IDENTITY</small></button>
+              <button class="folder-card" data-work-type="hackathon" data-detail="《不止一百种声音》播客：访谈 200+ 位嘉宾，覆盖 40+ 种人生话题。" type="button"><i></i><span>100 VOICES</span><small>PODCAST · 200+ INTERVIEWS</small></button>
+              <button class="folder-card" data-work-type="pdf" data-detail="AI 工具测评内容：以图文与短视频持续做工具实测和创业思考；小红书获赞与收藏 14 万+，哔哩哔哩累计播放 300 万+。" type="button"><i></i><span>AI REVIEW</span><small>CONTENT · 140K+ / 3M+</small></button>
+            </div>
+          </div>
+          <aside class="window work-note">
+            <div class="window-bar"><span>README.MD</span><button type="button" aria-label="关闭窗口">×</button></div>
+            <div><p class="eyebrow">PROJECT INDEX</p><h3>六份正在展开的档案。</h3><p>产品、服务设计、黑客松、视觉与内容创作——每一份都保留角色、过程和可继续打开的线索。</p><a class="pixel-button" href="https://liangyuanai.com" target="_blank" rel="noopener noreferrer">VISIT 量元涌现 <b>↗</b></a></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="desktop-section interests-section" id="interests" aria-labelledby="interests-title">
+        <div class="section-number">04</div>
+        <header class="section-heading"><p>OFF_THE_CLOCK / SIDE DOOR</p><h2 id="interests-title">工作之外，<br />我用另一种方式理解世界。</h2><span class="section-stamp">04 / PLAYGROUND</span></header>
+        <div class="interest-grid">
+          <button class="window interest-card reading" data-interest="电子书架" data-detail="读过、正在读、想读。第一批书目会以可筛选的书脊与阅读笔记上墙。" type="button"><div class="window-bar"><span>01 / READING</span><b>↗</b></div><div><b>▥</b><h3>电子书架</h3><p>读过、正在读、想读。</p><span>OPEN THE SHELF</span></div></button>
+          <button class="window interest-card film" data-interest="胶片页" data-detail="把看过的电影留在一格一格的光里。将支持年份筛选与横向胶片浏览。" type="button"><div class="window-bar"><span>02 / FILM</span><b>↗</b></div><div><b>◒</b><h3>胶片页</h3><p>把看过的电影留在一格一格的光里。</p><span>OPEN THE REEL</span></div></button>
+          <button class="window interest-card art" data-interest="画廊" data-detail="颜色、线条与没有被语言说完的感受。作品将按原始比例进入可放大的画墙。" type="button"><div class="window-bar"><span>03 / DRAWING</span><b>↗</b></div><div><b>✦</b><h3>画廊</h3><p>颜色、线条与没有被语言说完的感受。</p><span>OPEN THE GALLERY</span></div></button>
+          <button class="window interest-card exhibit" data-interest="摄影墙" data-detail="在展厅里收集视角，而不只是打卡。将按城市、时间和展览组织成摄影拼贴。" type="button"><div class="window-bar"><span>04 / EXHIBITIONS</span><b>↗</b></div><div><b>▣</b><h3>摄影墙</h3><p>在展厅里收集视角，而不只是打卡。</p><span>OPEN THE WALL</span></div></button>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="window chatbot-window">
+          <div class="window-bar"><span>LULUBOT.EXE · PERSONAL KNOWLEDGE BASE</span><span class="bot-online">● ONLINE</span></div>
+          <div class="chatbot-body"><header><p class="eyebrow">TALK TO 猫猫 / 05</p><h2 id="contact-title">要不要和<br />LuluBot 聊聊？</h2><p>它基于公开资料整理陈璐的创业、内容、作品与研究记录；会用一点热情、一点读心术来带你逛这间小屋。</p></header><div class="chatbot-panel"><div class="chatbot-messages" id="bottom-messages" aria-live="polite"><p><b>LULUBOT:</b> 啊啊啊欢迎来到猫猫的小屋！！你想先听 AI 创业、播客、作品，还是那些脑内小剧场一样的研究兴趣？</p></div><div class="chatbot-prompts"><button type="button" data-bottom-question="量元涌现是做什么的？">量元涌现是做什么的？</button><button type="button" data-bottom-question="聊聊播客">聊聊播客</button><button type="button" data-bottom-question="有哪些代表作品？">有哪些代表作品？</button><button type="button" data-bottom-question="你在研究什么？">你在研究什么？</button></div><form class="chatbot-form" id="bottom-bot-form"><input id="bottom-bot-input" maxlength="500" aria-label="向 LuluBot 提问" placeholder="输入你的问题，按 Enter 发送…" /><button class="pixel-button" type="submit">SEND <b>→</b></button></form><small>LuluBot 是资料导览与风格化回复，不代表本人实时回答。</small></div></div>
+          <footer><span>KNOWLEDGE BASE: 40 PUBLIC Q&amp;A / 2026</span><a href="#home">BACK TO HOME ↑</a></footer>
+        </div>
+      </section>
     </main>
+    <section class="overlay" id="bot-dialog" aria-modal="true" aria-label="与 Grace 对话" hidden><div class="window bot-window"><div class="window-bar"><span>GRACE_BOT.EXE · <i>● ONLINE</i></span><button data-close-bot type="button" aria-label="关闭对话">×</button></div><div class="bot-body"><p>想从哪里认识我？这是基于公开资料整理的站内导览。</p><div class="quick-questions"><button type="button">我在做什么？</button><button type="button">我有哪些代表作品？</button><button type="button">最近在看什么？</button></div><div class="messages" aria-live="polite"><p><b>GRACE BOT:</b> 选择一个问题，或直接留言。</p></div><form class="bot-form"><input maxlength="500" aria-label="输入你的问题" placeholder="输入你的问题…" /><button class="pixel-button" type="submit">SEND <b>→</b></button></form><small>回答基于公开资料整理，可能不完全实时。</small></div></div></section>
+    <section class="overlay" id="detail-dialog" aria-modal="true" aria-label="内容详情" hidden><div class="window detail-window"><div class="window-bar"><span id="detail-kicker">DETAILS.TXT</span><button data-close-detail type="button" aria-label="关闭详情">×</button></div><div class="detail-body"><p class="eyebrow" id="detail-type">ARCHIVE</p><h2 id="detail-title"></h2><div class="detail-content"><p id="detail-copy"></p><img id="detail-image" class="detail-partner-photo" src="./assets/partner-polaroid.png" alt="陈璐与姐姐博雅的拍立得合影" hidden /></div><button class="pixel-button" data-close-detail type="button">BACK <b>←</b></button></div></div></section>
+    <div class="loader" id="loader" role="status"><div><strong>GRACE.</strong><span>LOADING DESKTOP</span><i></i></div></div>
+    <p class="fallback" id="fallback" hidden>浏览器暂不支持 WebGL，请使用最新版 Chrome、Safari 或 Edge 打开。</p>
+    <script>
+      /* This classic-script fallback keeps the entrance usable when a browser blocks
+         ES modules from a file:// URL before main.mjs has had a chance to run. */
+      (() => {
+        const entryGate = document.querySelector('#entry-gate')
+        const catDoor = document.querySelector('#cat-door')
+        const loadingScreen = document.querySelector('#loader')
+        let hasEntered = false
+
+        const enterRoom = () => {
+          if (hasEntered) return
+          hasEntered = true
+          entryGate.classList.add('leaving')
+          document.querySelector('#status-copy').textContent = 'ENTERING ROOM'
+        }
+
+        catDoor.addEventListener('click', enterRoom)
+        catDoor.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') enterRoom()
+        })
+
+        // Avoid an unclickable loading layer if local module loading is restricted.
+        window.setTimeout(() => loadingScreen.classList.add('done'), 1800)
+      })()
+    </script>
     <script type="module" src="./main.mjs"></script>
   </body>
 </html>

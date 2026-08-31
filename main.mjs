@@ -1,111 +1,308 @@
 import * as THREE from 'three'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import roomModelUrl from './assets/logan-room.glb?url'
 
 const canvas = document.querySelector('#room')
+const loader = document.querySelector('#loader')
+const fallback = document.querySelector('#fallback')
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' })
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2))
-renderer.setSize(innerWidth, innerHeight)
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.outputColorSpace = THREE.SRGBColorSpace
+renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.toneMappingExposure = 1.05
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
-renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1.22
-renderer.outputColorSpace = THREE.SRGBColorSpace
 
 const scene = new THREE.Scene()
-scene.background = new THREE.Color(0xeee2cd)
-scene.fog = new THREE.Fog(0xeee2cd, 16, 29)
-const camera = new THREE.PerspectiveCamera(38, innerWidth / innerHeight, .1, 100)
-camera.position.set(10.4, 8.2, 13.5)
+scene.background = new THREE.Color(0xeefa58)
+scene.fog = new THREE.Fog(0xeefa58, 12, 32)
+const camera = new THREE.PerspectiveCamera(37, 1, 0.1, 100)
+const roomCameraPosition = new THREE.Vector3(8.8, 6.1, 11.6)
+const entryCameraPosition = new THREE.Vector3(12.6, 8.4, 18.4)
+camera.position.copy(entryCameraPosition)
 const controls = new OrbitControls(camera, canvas)
-controls.target.set(0, 2.55, -.15)
+controls.target.set(0, 1.8, 0)
 controls.enableDamping = true
-controls.dampingFactor = .055
-controls.minDistance = 10
-controls.maxDistance = 20
-controls.minPolarAngle = .72
-controls.maxPolarAngle = 1.43
-controls.maxAzimuthAngle = 1.25
-controls.minAzimuthAngle = -1.25
+controls.dampingFactor = 0.06
 controls.enablePan = false
 controls.autoRotate = true
-controls.autoRotateSpeed = .35
+controls.autoRotateSpeed = 0.32
+controls.minDistance = 6
+controls.maxDistance = 18
+controls.minPolarAngle = 0.62
+controls.maxPolarAngle = 1.54
+controls.minAzimuthAngle = -1.22
+controls.maxAzimuthAngle = 1.22
 
-const W = new THREE.Vector3(0, 1, 0)
-const materials = {
-  wood: new THREE.MeshStandardMaterial({ color: 0x4c2917, roughness: .48 }),
-  woodLight: new THREE.MeshStandardMaterial({ color: 0x80502b, roughness: .43 }),
-  dark: new THREE.MeshStandardMaterial({ color: 0x202019, roughness: .35, metalness: .15 }),
-  wall: new THREE.MeshStandardMaterial({ color: 0x5c6041, roughness: .9 }),
-  floor: new THREE.MeshStandardMaterial({ color: 0x523722, roughness: .63 }),
-  brass: new THREE.MeshStandardMaterial({ color: 0x9a7134, roughness: .27, metalness: .75 }),
-  leaf: new THREE.MeshStandardMaterial({ color: 0x344c24, roughness: .68, side: THREE.DoubleSide }),
-  leafLight: new THREE.MeshStandardMaterial({ color: 0x58743a, roughness: .7, side: THREE.DoubleSide }),
-  cream: new THREE.MeshStandardMaterial({ color: 0xe9dcc3, roughness: .8 }),
-  rust: new THREE.MeshStandardMaterial({ color: 0xc96237, roughness: .83 }),
-  greenFabric: new THREE.MeshPhysicalMaterial({ color: 0x586044, roughness: .82, sheen: .55, sheenColor: new THREE.Color(0x93a373) }),
+scene.add(new THREE.HemisphereLight(0xfff6df, 0x657354, 2.65))
+const key = new THREE.DirectionalLight(0xffdfad, 4.2)
+key.position.set(-6, 10, 7)
+key.castShadow = true
+key.shadow.mapSize.set(1024, 1024)
+scene.add(key)
+const fill = new THREE.DirectionalLight(0xc7e1ef, 1.3)
+fill.position.set(7, 4, -4)
+scene.add(fill)
+
+const room = new THREE.Group()
+scene.add(room)
+const floor = new THREE.Mesh(new THREE.CircleGeometry(7.6, 64), new THREE.MeshStandardMaterial({ color: 0xd2e567, roughness: 0.95 }))
+floor.rotation.x = -Math.PI / 2
+floor.position.y = -0.02
+floor.receiveShadow = true
+scene.add(floor)
+
+
+function fitRoom(object) {
+  const bounds = new THREE.Box3().setFromObject(object)
+  const size = bounds.getSize(new THREE.Vector3())
+  const center = bounds.getCenter(new THREE.Vector3())
+  const scale = 7.1 / Math.max(size.x, size.z)
+  object.scale.setScalar(scale)
+  bounds.setFromObject(object)
+  const fittedCenter = bounds.getCenter(new THREE.Vector3())
+  object.position.sub(fittedCenter)
+  object.position.y -= bounds.min.y
+  object.position.x += 0.9
+  object.rotation.y = -0.38
 }
-const root = new THREE.Group(); scene.add(root)
-const clickable = []; const floating = []
-const box = (w,h,d,mat,x=0,y=0,z=0, bevel=0) => {
-  const geo = bevel ? new THREE.BoxGeometry(w,h,d,1,1,1) : new THREE.BoxGeometry(w,h,d)
-  const obj = new THREE.Mesh(geo, mat); obj.position.set(x,y,z); obj.castShadow = obj.receiveShadow = true; return obj
+
+new GLTFLoader().load(
+  roomModelUrl,
+  (gltf) => {
+    const model = gltf.scene
+    fitRoom(model)
+    model.traverse((child) => {
+      if (!child.isMesh) return
+      child.castShadow = true
+      child.receiveShadow = true
+      if (child.material) child.material.needsUpdate = true
+    })
+    room.add(model)
+    loader.classList.add('done')
+  },
+  undefined,
+  () => {
+    loader.classList.add('done')
+    fallback.hidden = false
+    document.querySelector('#status-copy').textContent = 'MODEL UNAVAILABLE'
+  }
+)
+
+const botDialog = document.querySelector('#bot-dialog')
+const detailDialog = document.querySelector('#detail-dialog')
+const messages = document.querySelector('.messages')
+const botInput = document.querySelector('.bot-form input')
+const botAnswers = {
+  '我在做什么？': '我在量元涌现主导 ToB 产品设计与用户体验，也持续探索 AI、内容和认知科学交叉处的表达方式。',
+  '我有哪些代表作品？': '作品集包括 Talentmap、OMO 记忆学习 App、容医智能医疗系统，以及播客与 AI 工具测评等内容项目。',
+  '最近在看什么？': '我在长期关注认知神经科学与脑科学，并持续把阅读、电影、绘画和看展收进兴趣档案。'
 }
-const cyl = (r1,r2,h,mat,x=0,y=0,z=0,seg=20) => { const o = new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,seg),mat); o.position.set(x,y,z); o.castShadow=o.receiveShadow=true; return o }
-const group = (...items) => { const g = new THREE.Group(); g.add(...items); return g }
-function roundedBox(w,h,d,r,mat) { const shape = new THREE.Shape(); const a=w/2,b=h/2; shape.moveTo(-a+r,-b); shape.lineTo(a-r,-b); shape.quadraticCurveTo(a,-b,a,-b+r); shape.lineTo(a,b-r); shape.quadraticCurveTo(a,b,a-r,b); shape.lineTo(-a+r,b); shape.quadraticCurveTo(-a,b,-a,b-r); shape.lineTo(-a,-b+r); shape.quadraticCurveTo(-a,-b,-a+r,-b); return new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:d,bevelEnabled:true,bevelSize:.05,bevelThickness:.05,bevelSegments:2}),mat) }
-function canvasTexture(draw, size=512) { const c=document.createElement('canvas');c.width=c.height=size; const ctx=c.getContext('2d');draw(ctx,size); const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace; return t }
-const rugTex = canvasTexture((c,s)=>{ c.fillStyle='#465133';c.fillRect(0,0,s,s);c.strokeStyle='#b29962';c.lineWidth=18;c.strokeRect(22,22,s-44,s-44);c.lineWidth=5;c.strokeRect(48,48,s-96,s-96); for(let y=92;y<s-80;y+=58)for(let x=92;x<s-70;x+=67){c.fillStyle=(x+y)%3?'#8d8951':'#c1aa68';c.beginPath();c.arc(x,y,7,0,Math.PI*2);c.fill();}},512)
-const posterTex = canvasTexture((c,s)=>{c.fillStyle='#d4b57b';c.fillRect(0,0,s,s);c.strokeStyle='#895f39';c.lineWidth=12;c.strokeRect(22,22,s-44,s-44);c.fillStyle='#b8773d';c.beginPath();c.arc(235,145,64,0,Math.PI*2);c.fill();c.fillStyle='#6c7447';c.beginPath();c.moveTo(30,390);c.lineTo(160,250);c.lineTo(280,355);c.lineTo(390,205);c.lineTo(490,390);c.fill();c.fillStyle='#5c432a';c.font='bold 34px serif';c.fillText('FIELD NOTES',110,454);})
+const luluKnowledge = [
+  ['你是谁？', '我是陈璐，也有人叫我猫猫：一个在产品、内容与认知科学之间来回穿梭的 INFP 创业者。'],
+  ['你现在在做什么？', '现在最主要的身份是上海量元涌现人工智能科技有限公司创始人，主导 ToB 产品设计与用户体验。'],
+  ['你的关键词是什么？', '设计 × 心理 × AI。用理性设计产品，用内容连接人——这句是猫猫的小小底层代码。'],
+  ['量元涌现是做什么的？', '量元涌现做 AI + 企业服务，服务出海企业与数字化转型客户。不是为了炫技，是让技术真的落地aaaa。'],
+  ['量元涌现提供什么业务？', '网站搭建、AIGC 视频生成、企业出海和人力咨询，都是正在展开的业务线。'],
+  ['量元涌现在哪里？', '团队扎根上海与新加坡双城协作，两个城市的视角在这里悄悄碰头。'],
+  ['量元涌现的团队怎么样？', '是一支小而精的跨学科团队，硕博学历占比 71.4%，成员来自复旦、华东师大、北大、中科院及多所海外高校。'],
+  ['你在量元涌现负责什么？', '猫猫负责产品设计与用户体验：把模糊需求翻译成可被人顺手使用的产品路径。'],
+  ['Talentmap 是什么？', 'Talentmap 是量元涌现的 AI 招聘软件项目，猫猫负责产品设计。'],
+  ['为什么做 ToB 产品？', '因为企业场景里的每一次决策背后都是真实的人和协作关系；把复杂流程理顺，真的很有成就感呢。'],
+  ['合伙人是谁？', '姐姐博雅：新加坡国立大学硕士，新加坡出海经理、人力资源管理从业者。'],
+  ['量元涌现名字的由来？', '这个小秘密已经整理成公众号文章啦，时间线里的「名字的由来」按钮可以直接打开。'],
+  ['怎么查看量元涌现官网？', '在创业经历第一条的公司卡片里点「查看官网」，就能到 liangyuanai.com。'],
+  ['你做播客吗？', '做呀！！《不止一百种声音》是猫猫从大四开始独立制作的播客。'],
+  ['播客叫什么？', '小宇宙《不止一百种声音》。名字听起来就像一扇会不断开的小门，嘿嘿。'],
+  ['播客从什么时候开始？', '从大四开始，猫猫自己把它一点点做起来。'],
+  ['播客你负责哪些工作？', '招募嘉宾、制作结构性访谈提纲、剪辑和运营——从一个念头到被听见，基本全流程都参与。'],
+  ['播客采访了多少人？', '已经访谈 200+ 位不同行业、不同阶段的嘉宾。每个人都是一颗小星球啊啊啊。'],
+  ['播客聊什么话题？', '已覆盖 40+ 种人生话题，关心人怎么选择、怎么成长、怎么和自己相处。'],
+  ['怎么收听播客？', '在《不止一百种声音》条目里点击「点击收听」，会跳转到小宇宙主页。'],
+  ['你为什么做内容？', '内容是猫猫和世界保持连接的一种方式：把复杂的技术和人的感受，变成可以被听见、看见的东西。'],
+  ['你在哪里做内容？', '在公众号、小红书持续输出 AI 工具实测与创业思考，也在哔哩哔哩发布视频内容。'],
+  ['你的内容数据怎么样？', '小红书获赞与收藏 14 万+，哔哩哔哩视频累计播放 300 万+。数据是脚印，不是终点啦。'],
+  ['你为什么做 AI 工具测评？', '因为工具到底好不好用，不能只听发布会；猫猫会把它放进真实创作和工作流程里试试看。'],
+  ['你的本科专业是什么？', '本科读工业设计。'],
+  ['你还学过心理学吗？', '学过！曾在华东师范大学跨校辅修应用心理学。'],
+  ['工业设计对你有什么影响？', '它训练我从人的动作、场景和限制出发看问题；好产品不是漂亮摆件，是能被顺手带走的体验。'],
+  ['心理学对做产品有什么帮助？', '会让我更在意人为什么犹豫、为什么相信、为什么在一个按钮前停住。读心术当然是玩笑，但观察是真的。'],
+  ['你在研究什么？', '现在深度关注认知神经科学与脑科学，也在推进神经科学方向的论文研究。'],
+  ['为什么关注脑科学？', '理解人如何思考、如何决策，是做产品时最底层的武器。大脑这个小宇宙真的很值得研究呢。'],
+  ['你获得过什么奖项？', '曾获机械工程大赛一等奖。'],
+  ['OMO 是什么项目？', 'OMO 是一款记忆学习 App，猫猫负责前端开发与网页设计。'],
+  ['容医是什么项目？', '容医是智能医疗系统项目，包含服务设计与用户研究。'],
+  ['你还做品牌视觉吗？', '做过视频剪辑、品牌视觉和海报设计，为企业宣传建立清晰的视觉表达。'],
+  ['作品集有哪些内容？', '包括 UI/UX 设计、黑客松、AIGC 实验项目和内容创作，网站的 WORK 区已经放了六份精选档案。'],
+  ['你怎么做一个新项目？', '通常先听人和场景里的真实问题，再做原型、测试体验、反复调整。小小的观察，往往能长成大方向。'],
+  ['你平时关注什么？', 'AI、产品、内容创作，也关注阅读、电影、绘画与看展。工作之外也要给脑袋放风呀。'],
+  ['你是 INFP 吗？', '是 INFP。会做很多未来小剧场，也会把那些小剧场变成待办和项目，哈哈哈哈。'],
+  ['可以找你合作吗？', '当然可以！可以从网站的经历与作品先了解方向，再通过社交主页联系。具体合作范围以沟通为准。'],
+  ['你接下来想做什么？', '继续让 AI、设计、心理与内容在真实场景里相遇。下一件正在发生的事，可能已经在路上啦。']
+]
+function answerFromKnowledge(question) {
+  const input = question.toLowerCase()
+  const exact = luluKnowledge.find(([prompt]) => prompt === question.trim())
+  if (exact) return exact[1]
+  if (input.includes('量元') || input.includes('公司') || input.includes('创业') || input.includes('talentmap')) return '啊啊啊量元涌现是猫猫正在认真养大的 AI + 企业服务团队！！团队扎根上海与新加坡双城，服务出海企业与数字化转型客户，提供网站搭建、AIGC 视频生成、企业出海和人力咨询。猫猫作为创始人，主导 ToB 产品设计与用户体验——让技术不是停在 PPT 里，而是真的被人用起来aaaa。'
+  if (input.includes('播客') || input.includes('声音') || input.includes('小宇宙') || input.includes('访谈')) return '《不止一百种声音》是从大四开始独立制作的播客：招募嘉宾、做结构性访谈提纲、剪辑、运营，猫猫全都自己来！！现在已经访谈 200+ 位不同行业、不同阶段的嘉宾，覆盖 40+ 种人生话题。每个人都有一套没被写进简历的宇宙，听到的时候会不会也觉得很神奇呢？'
+  if (input.includes('作品') || input.includes('项目') || input.includes('omo') || input.includes('容医')) return '作品档案里有 Talentmap AI 招聘软件、OMO 记忆学习 App、容医智能医疗系统、品牌视觉与视频，以及播客和 AI 工具测评内容。它们看起来很不一样，但底层都是同一个问题：怎么把人的真实感受、决策和需求，变成一个能被体验到的东西。'
+  if (input.includes('研究') || input.includes('心理') || input.includes('认知') || input.includes('脑') || input.includes('设计')) return '猫猫本科读工业设计，也跨校辅修应用心理学，现在关注认知神经科学与脑科学。读心术当然是玩笑话啦（嘻嘻），但理解人怎么思考、怎么决策，确实是做产品时很底层的一把武器。'
+  if (input.includes('博雅') || input.includes('姐姐') || input.includes('合伙人')) return '姐姐博雅是新加坡国立大学硕士，也是新加坡出海经理、人力资源管理从业者。她和猫猫一起把上海与新加坡双城的业务线一点点搭起来，很会的姐姐！！！'
+  return 'aaaa这个问题我还没有在公开资料里找到完整答案，但你可以问问量元涌现、播客、作品或认知科学——这些小抽屉我都装得满满的（嘿嘿）。'
+}
+function openBot(question = '') {
+  botDialog.hidden = false
+  if (question) respondToBot(question)
+  else botInput.focus()
+}
+function closeBot() { botDialog.hidden = true }
+function respondToBot(question) {
+  const text = question.trim()
+  if (!text) return
+  messages.insertAdjacentHTML('beforeend', `<p><b>YOU:</b> ${text.replaceAll('<', '&lt;')}</p>`)
+  messages.insertAdjacentHTML('beforeend', `<p><b>GRACE BOT:</b> ${botAnswers[text] || answerFromKnowledge(text)}</p>`)
+  messages.scrollTop = messages.scrollHeight
+  botInput.value = ''
+}
+document.querySelector('[data-open-contact]').addEventListener('click', () => {
+  document.querySelector('#contact').scrollIntoView({ behavior: 'smooth', block: 'center' })
+  window.setTimeout(() => bottomInput.focus(), 450)
+})
+document.querySelectorAll('[data-close-bot]').forEach((button) => button.addEventListener('click', closeBot))
+document.querySelectorAll('[data-bot-question], .quick-questions button').forEach((button) => button.addEventListener('click', () => openBot(button.textContent.trim())))
+document.querySelector('.bot-form').addEventListener('submit', (event) => { event.preventDefault(); respondToBot(botInput.value) })
 
-// Architectural shell, floorboards and plinth
-const plinth = roundedBox(11.5,.55,10.4,.3,materials.woodLight);plinth.position.set(0,-.28,0);root.add(plinth)
-const floor = box(10.8,.18,9.7,materials.floor,0,.08,0);root.add(floor)
-for(let x=-5.1;x<5.2;x+=.58){const seam=box(.018,.008,9.45,materials.dark,x,.18,0);seam.material=seam.material.clone();seam.material.color.set(0x2a190e);root.add(seam)}
-const backWall=box(10.8,7.6,.28,materials.wall,0,3.9,-4.72); const sideWall=box(.28,7.6,9.5,materials.wall,5.25,3.9,0);root.add(backWall,sideWall)
-const capA=box(11.2,.28,.48,materials.cream,0,7.62,-4.65), capB=box(.5,.28,9.9,materials.cream,5.25,7.62,0);root.add(capA,capB)
+const bottomMessages = document.querySelector('#bottom-messages')
+const bottomInput = document.querySelector('#bottom-bot-input')
+function respondAtBottom(question) {
+  const text = question.trim()
+  if (!text) return
+  bottomMessages.insertAdjacentHTML('beforeend', `<p><b>YOU:</b> ${text.replaceAll('<', '&lt;')}</p>`)
+  bottomMessages.insertAdjacentHTML('beforeend', `<p><b>LULUBOT:</b> ${answerFromKnowledge(text)}</p>`)
+  bottomMessages.scrollTop = bottomMessages.scrollHeight
+  bottomInput.value = ''
+}
+document.querySelectorAll('[data-bottom-question]').forEach((button) => button.addEventListener('click', () => respondAtBottom(button.dataset.bottomQuestion)))
+document.querySelector('#bottom-bot-form').addEventListener('submit', (event) => { event.preventDefault(); respondAtBottom(bottomInput.value) })
 
-// Rug
-const rug = new THREE.Mesh(new THREE.PlaneGeometry(7.8,5.6),new THREE.MeshStandardMaterial({map:rugTex,roughness:.92}));rug.rotation.x=-Math.PI/2;rug.position.set(.05,.195,.6);rug.receiveShadow=true;root.add(rug)
+function openDetail(title, type, copy, image = false) {
+  document.querySelector('#detail-title').textContent = title
+  document.querySelector('#detail-type').textContent = type
+  document.querySelector('#detail-kicker').textContent = `${type.replaceAll(' ', '_')}.TXT`
+  document.querySelector('#detail-copy').textContent = copy
+  document.querySelector('#detail-image').hidden = !image
+  detailDialog.hidden = false
+}
+document.querySelectorAll('[data-close-detail]').forEach((button) => button.addEventListener('click', () => { detailDialog.hidden = true }))
+document.querySelectorAll('.timeline article').forEach((article) => article.addEventListener('click', () => openDetail(article.querySelector('h3').textContent, article.dataset.type.toUpperCase(), article.dataset.detail)))
+document.querySelectorAll('.folder-card').forEach((card) => card.addEventListener('click', () => openDetail(card.querySelector('span').textContent, card.dataset.workType.toUpperCase(), card.dataset.detail)))
+document.querySelectorAll('.interest-card').forEach((card) => card.addEventListener('click', () => openDetail(card.dataset.interest, 'OFF THE CLOCK', card.dataset.detail)))
+const companyDetails = {
+  about: {
+    title: '我的团队 · 量元涌现',
+    copy: '我们是一支小而精的跨学科创业团队，硕博学历占比 71.4%，成员来自复旦大学、华东师范大学、北京大学、中科院、新加坡国立大学、爱丁堡大学、巴塞罗那大学、香港中文大学等海内外高校。团队以「AI + 企业服务」为核心，扎根上海与新加坡双城，服务出海企业与数字化转型客户；提供网站搭建、AIGC 视频生成、企业出海、人力咨询等业务。'
+  },
+  partner: {
+    title: '姐姐 · 博雅',
+    copy: '新加坡国立大学硕士；新加坡出海经理、人力资源管理从业者。',
+    image: true
+  }
+}
+document.querySelectorAll('[data-company-detail]').forEach((button) => button.addEventListener('click', (event) => {
+  event.stopPropagation()
+  const detail = companyDetails[button.dataset.companyDetail]
+  openDetail(detail.title, '量元涌现 / COMPANY FILE', detail.copy, detail.image)
+}))
+document.querySelectorAll('a.company-action').forEach((link) => link.addEventListener('click', (event) => event.stopPropagation()))
+document.querySelector('[data-podcast-detail]').addEventListener('click', (event) => {
+  event.stopPropagation()
+  openDetail('关于《不止一百种声音》', 'PODCAST / 200+ GUESTS', '我从大四开始独立制作了这档播客，包括招募嘉宾、制作结构性访谈提纲、剪辑、运营。现已访谈 200+ 位不同行业、不同阶段的嘉宾，覆盖 40+ 种人生话题；同时持续输出 AI 工具实测与创业思考。')
+})
+document.querySelectorAll('a.podcast-action').forEach((link) => link.addEventListener('click', (event) => event.stopPropagation()))
+document.querySelectorAll('.filter-row:not(.work-filter) button').forEach((button) => button.addEventListener('click', () => {
+  const type = button.textContent.trim().toLowerCase()
+  document.querySelectorAll('.filter-row:not(.work-filter) button').forEach((item) => item.classList.toggle('active', item === button))
+  document.querySelectorAll('.timeline article').forEach((article) => { article.hidden = type !== 'all' && article.dataset.type !== type })
+}))
+document.querySelectorAll('[data-work-filter]').forEach((button) => button.addEventListener('click', () => {
+  const type = button.dataset.workFilter
+  document.querySelectorAll('[data-work-filter]').forEach((item) => item.classList.toggle('active', item === button))
+  document.querySelectorAll('.folder-card').forEach((card) => { card.hidden = type !== 'all' && card.dataset.workType !== type })
+}))
 
-function bookshelf(){ const g=new THREE.Group(); const x=-3.55,z=-3.95; const frame=materials.wood; g.add(box(4.15,5.45,.34,frame,x,3.0,z),box(.22,5.8,.48,frame,x-2.0,3.2,z),box(.22,5.8,.48,frame,x+2.0,3.2,z)); for(const y of [1.05,2.6,4.15,5.7])g.add(box(4.1,.18,.52,frame,x,y,z+.12)); for(const xx of [-1.34,0,1.34])g.add(box(.14,5.5,.42,frame,x+xx,3.18,z+.05)); const colors=[0x314034,0x70402c,0xa86635,0x9b8054,0x283c39,0xb48643]; for(let row=0;row<4;row++){let px=x-1.75;for(let i=0;i<10;i++){const h=.62+Math.random()*.38,w=.11+Math.random()*.13;const book=box(w,h,.31,new THREE.MeshStandardMaterial({color:colors[(i+row*2)%colors.length],roughness:.65}),px+w/2,1.27+row*1.55,z+.34);book.rotation.z=(Math.random()-.5)*.12;g.add(book);px+=w+.045}} root.add(g) }
-bookshelf()
+const homeDialog = document.querySelector('#home-dialog')
+const profileTrigger = document.querySelector('[data-open-home-dialog]')
+const closeProfileTrigger = document.querySelector('[data-close-home-dialog]')
+let roomPointerStart = null
 
-function bed(){const g=new THREE.Group();g.add(box(3.35,.35,5.0,materials.woodLight,-2.35,.84,1.7),box(.24,1.55,3.4,materials.wood,-2.35,1.62,-.65)); for(const [x,z] of [[-3.8,-.52],[-.9,-.52],[-3.8,3.9],[-.9,3.9]])g.add(cyl(.12,.14,.85,materials.wood,x,.42,z));g.add(box(3.08,.27,4.6,materials.cream,-2.35,1.18,1.7)); const quilt=box(3.13,.25,2.95,materials.rust,-2.35,1.43,2.35);g.add(quilt);for(let z=.95;z<3.8;z+=.36)g.add(box(3.16,.018,.025,materials.woodLight,-2.35,1.58,z));const pillow=roundedBox(1.25,.25,.76,.15,materials.cream);pillow.rotation.x=-Math.PI/2;pillow.position.set(-2.78,1.54,-.05);g.add(pillow);const pillow2=roundedBox(1.2,.22,.72,.15,materials.greenFabric);pillow2.rotation.x=-Math.PI/2;pillow2.position.set(-2.05,1.67,.02);g.add(pillow2);root.add(g)} bed()
+function openHomeDialog() {
+  homeDialog.hidden = false
+  profileTrigger.setAttribute('aria-expanded', 'true')
+}
 
-function desk(){const g=new THREE.Group(),x=1.7,z=-2.4;g.add(box(4.0,.25,1.75,materials.woodLight,x,2.38,z));for(const dx of [-1.72,1.72])for(const dz of [-.65,.65])g.add(box(.18,2.25,.18,materials.wood,x+dx,1.24,z+dz));const shelf=box(1.78,1.55,.72,materials.wood,x+2.18,1.08,z+.1);g.add(shelf,box(1.75,.1,.8,materials.woodLight,x+2.18,1.5,z+.1)); for(let i=0;i<10;i++){const b=box(.12,.78+Math.random()*.35,.52,new THREE.MeshStandardMaterial({color:[0x985843,0x24505a,0xdbc08b,0x455438][i%4],roughness:.55}),x+1.43+i*.15,1.68,z+.15);g.add(b)} const laptop=group(box(1.38,.06,.96,materials.dark,x-.38,2.58,z-.05),box(1.38,.9,.06,new THREE.MeshStandardMaterial({color:0xb5ad9e,roughness:.25,metalness:.5}),x-.38,3.04,z-.49));laptop.children[1].rotation.x=-.15;g.add(laptop); const proj=box(.98,.5,.75,new THREE.MeshStandardMaterial({color:0xd4cbb9,roughness:.32,metalness:.2}),x+1.05,2.72,z+.15);g.add(proj,cyl(.19,.19,.04,materials.dark,x+1.05,2.74,z+.55));root.add(g)} desk()
+function closeHomeDialog() {
+  homeDialog.hidden = true
+  profileTrigger.setAttribute('aria-expanded', 'false')
+}
 
-function chair(){const g=new THREE.Group();g.add(cyl(.6,.7,.13,materials.dark,.15,1.08,.45),cyl(.12,.16,.75,materials.brass,.15,.67,.45));const seat=box(1.45,.23,1.35,materials.greenFabric,.15,1.3,.45);g.add(seat);const back=box(1.42,1.25,.22,materials.greenFabric,.15,2.0,.97);back.rotation.x=-.18;g.add(back);for(let a=0;a<5;a++){const leg=cyl(.035,.035,.85,materials.brass,.15,.3,.45);leg.rotation.z=Math.PI/2;leg.rotation.y=a*Math.PI*2/5;g.add(leg)}root.add(g)} chair()
+profileTrigger.setAttribute('aria-expanded', 'false')
+profileTrigger.addEventListener('click', openHomeDialog)
+closeProfileTrigger.addEventListener('click', closeHomeDialog)
+canvas.addEventListener('pointerdown', (event) => {
+  roomPointerStart = { x: event.clientX, y: event.clientY }
+})
+canvas.addEventListener('pointerup', (event) => {
+  if (!roomPointerStart) return
+  const moved = Math.hypot(event.clientX - roomPointerStart.x, event.clientY - roomPointerStart.y)
+  roomPointerStart = null
+  if (moved < 8) openHomeDialog()
+})
+canvas.addEventListener('pointercancel', () => { roomPointerStart = null })
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !homeDialog.hidden) closeHomeDialog()
+  if (event.key === 'Escape' && !botDialog.hidden) closeBot()
+  if (event.key === 'Escape' && !detailDialog.hidden) detailDialog.hidden = true
+})
 
-function plant(x,z,scale=1){const g=new THREE.Group();const pot=cyl(.38,.28,.53,new THREE.MeshStandardMaterial({color:0x8d6436,roughness:.75}),x,.55,z);g.add(pot);for(let i=0;i<14;i++){const a=i*Math.PI*2/14;const leaf=new THREE.Mesh(new THREE.SphereGeometry(.13,9,6),i%2?materials.leaf:materials.leafLight);leaf.scale.set(.65,2.8,1);leaf.position.set(x+Math.cos(a)*.35*scale,1.23+Math.sin(i*2)*.13,z+Math.sin(a)*.35*scale);leaf.rotation.z=Math.cos(a)*.7;leaf.rotation.y=-a;leaf.castShadow=true;g.add(leaf)}root.add(g)} plant(.1,-3.4,1.65);plant(-3.95,-2.65,.52);plant(3.2,-2.0,.44)
+const entryGate = document.querySelector('#entry-gate')
+const catDoor = document.querySelector('#cat-door')
+let enteringRoom = false
+let entryStartedAt = 0
+catDoor.addEventListener('click', () => {
+  if (enteringRoom) return
+  enteringRoom = true
+  entryStartedAt = performance.now()
+  controls.enabled = false
+  entryGate.classList.add('leaving')
+  document.querySelector('#status-copy').textContent = 'ENTERING ROOM'
+  window.setTimeout(() => { controls.enabled = true; controls.autoRotate = true }, 1400)
+})
 
-// Wall print & projector screen
-const print=new THREE.Mesh(new THREE.PlaneGeometry(1.35,1.9),new THREE.MeshStandardMaterial({map:posterTex,roughness:.88}));print.position.set(2.5,4.65,-4.51);root.add(print);const frame=box(1.52,2.07,0.06,materials.woodLight,2.5,4.65,-4.57);root.add(frame);const screen=box(2.45,1.72,.08,materials.cream,4.97,4.6,-1.25);screen.rotation.y=-Math.PI/2;root.add(screen);const rod=cyl(.08,.08,2.7,materials.dark,4.88,5.56,-1.25);rod.rotation.z=Math.PI/2;root.add(rod)
-
-function recordPlayer(){const g=new THREE.Group();g.add(box(1.75,.26,1.28,materials.woodLight,3.8,1.28,2.8),box(1.6,.08,1.14,materials.dark,3.8,1.48,2.8));const disk=cyl(.48,.48,.04,new THREE.MeshStandardMaterial({color:0x10100e,roughness:.18,metalness:.18}),3.65,1.54,2.8);g.add(disk,cyl(.055,.055,.05,materials.rust,3.65,1.58,2.8));const arm=cyl(.025,.025,.72,materials.brass,4.27,1.67,2.9);arm.rotation.z=Math.PI/2.8;g.add(arm);root.add(g)} recordPlayer()
-
-function globe(){const g=new THREE.Group();const stand=cyl(.42,.52,.14,materials.brass,4.42,.52,3.77);g.add(stand);const earth=new THREE.Mesh(new THREE.SphereGeometry(.47,24,16),new THREE.MeshStandardMaterial({color:0x4d8b92,roughness:.68}));earth.position.set(4.42,1.15,3.77);earth.castShadow=true;g.add(earth);const ring=new THREE.Mesh(new THREE.TorusGeometry(.52,.027,8,32),materials.brass);ring.position.copy(earth.position);ring.rotation.x=1.15;g.add(ring);root.add(g)} globe()
-
-// Camera on bed, small decor and hotspots
-function cameraProp(){const g=group(box(.55,.32,.34,materials.dark,-2.25,1.82,2.2),cyl(.17,.17,.23,new THREE.MeshStandardMaterial({color:0x1c201e,roughness:.22,metalness:.4}),-2.25,1.82,2.39));g.children[1].rotation.x=Math.PI/2;root.add(g)}cameraProp()
-function hotspot(pos, note){const ring=new THREE.Mesh(new THREE.RingGeometry(.075,.11,24),new THREE.MeshBasicMaterial({color:0xe8c67a,side:THREE.DoubleSide,transparent:true,opacity:.96}));ring.position.copy(pos);ring.lookAt(camera.position);ring.userData.note=note;clickable.push(ring);floating.push(ring);root.add(ring)}
-hotspot(new THREE.Vector3(-3.4,3.1,-3.35),{index:'01 / LIBRARY',title:'被翻过的书脊',copy:'书架不是陈列柜。深浅不一的书脊、停在角落的小盆栽，让阅读像一件持续发生的事。'})
-hotspot(new THREE.Vector3(-2.25,1.94,2.35),{index:'02 / MEMORY',title:'随手放下的相机',copy:'床尾的相机像一个未完结的句子——房间里每一次微小的光线变化，都值得被留下。'})
-hotspot(new THREE.Vector3(3.72,1.85,2.45),{index:'03 / LISTENING',title:'让唱针先落下',copy:'旧唱机和一整面唱片架，是在任何忙碌之前，给自己留出三十分钟的仪式。'})
-
-// Lighting
-scene.add(new THREE.HemisphereLight(0xfff2ce,0x313a28,2.1))
-const key=new THREE.DirectionalLight(0xffdda1,3.7);key.position.set(-6,11,8);key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.camera.left=-8;key.shadow.camera.right=8;key.shadow.camera.top=8;key.shadow.camera.bottom=-8;key.shadow.bias=-.0002;scene.add(key)
-const warm=new THREE.PointLight(0xffa95a,28,10,2);warm.position.set(-1.9,5.8,1.8);scene.add(warm)
-const fill=new THREE.PointLight(0x91a77a,9,8,2);fill.position.set(4,4,-1);scene.add(fill)
-
-const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();let over=null
-addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();pointer.x=((e.clientX-r.left)/r.width)*2-1;pointer.y=-((e.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(pointer,camera);const hit=raycaster.intersectObjects(clickable)[0];canvas.style.cursor=hit?'pointer':'grab';over=hit?.object||null})
-addEventListener('click',()=>{if(!over)return;const n=over.userData.note;document.querySelector('#spotlight-index').textContent=n.index;document.querySelector('#spotlight-title').textContent=n.title;document.querySelector('#spotlight-copy').textContent=n.copy;document.querySelector('#spotlight').classList.add('open')})
-document.querySelector('#close-spotlight').onclick=()=>document.querySelector('#spotlight').classList.remove('open')
-document.querySelector('#explore').onclick=()=>{controls.autoRotate=false;document.querySelector('.intro').animate([{opacity:1},{opacity:.18}],{duration:450,fill:'forwards'})}
-document.querySelector('#sound').onclick=e=>{const b=e.currentTarget;b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'));warm.intensity=b.getAttribute('aria-pressed')==='true'?42:28}
-const views={overview:{p:[10.4,8.2,13.5],t:[0,2.55,-.15]},reading:{p:[-9.6,5.2,6.5],t:[-2.8,2.5,-1.8]},desk:{p:[7.3,4.7,6.7],t:[1.85,2.5,-2.4]}}
-document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{const v=views[b.dataset.view];camera.position.set(...v.p);controls.target.set(...v.t);controls.autoRotate=false;document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x===b))})
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)})
-const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();floating.forEach((o,i)=>{o.rotation.z=t*1.4+i;o.scale.setScalar(1+Math.sin(t*2+i)*.13);o.quaternion.copy(camera.quaternion)});controls.update();renderer.render(scene,camera)}animate()
-setTimeout(()=>document.querySelector('#loader').classList.add('done'),900)
+function resizeScene() {
+  const { width, height } = canvas.getBoundingClientRect()
+  camera.aspect = width / height
+  camera.updateProjectionMatrix()
+  renderer.setSize(width, height, false)
+}
+window.addEventListener('resize', resizeScene)
+if (!renderer.capabilities.isWebGL2 && !renderer.capabilities.isWebGL) fallback.hidden = false
+const clock = new THREE.Clock()
+function animate() {
+  requestAnimationFrame(animate)
+  const delta = clock.getDelta()
+  room.position.y = Math.sin(clock.getElapsedTime() * 0.42) * 0.025
+  if (enteringRoom) {
+    const progress = Math.min((performance.now() - entryStartedAt) / 1400, 1)
+    const ease = 1 - Math.pow(1 - progress, 4)
+    camera.position.lerpVectors(entryCameraPosition, roomCameraPosition, ease)
+    controls.target.lerp(new THREE.Vector3(0, 1.8, 0), Math.min(delta * 8, 1))
+    if (progress === 1) enteringRoom = false
+  }
+  controls.update()
+  renderer.render(scene, camera)
+}
+resizeScene()
+animate()
