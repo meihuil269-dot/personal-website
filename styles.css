@@ -15,6 +15,23 @@
 @media (max-width:760px) { .desktop-bar { grid-template-columns:1fr auto; }.desktop-bar nav { display:none; }.chat-trigger { font-size:7px; }.room-stage { min-height:680px; }.desktop-rail { top:76px; left:13px; gap:7px; }.desktop-rail a { width:46px; padding:4px; font-size:6px; }.desktop-rail b { width:23px; height:23px; font-size:7px; }.hero-window { top:auto; bottom:67px; left:72px; width:calc(100% - 90px); }.hero-window-body { padding:17px; }.hero-window h1 { font-size:29px; }.hero-window p:not(.eyebrow) { display:none; }.tag-row { margin:14px 0; }.tag-row span { font-size:7px; }.scene-hint { right:16px; bottom:47px; font-size:6px; }.stage-status { padding:10px 12px; font-size:6px; }.desktop-section { min-height:auto; padding:91px 18px 64px; }.section-number { top:24px; left:18px; font-size:18px; }.section-heading { margin:0 0 30px 55px; }.section-heading p { font-size:7px; }.section-heading h2 { font-size:28px; }.timeline { padding:6px 16px 16px; }.timeline article { grid-template-columns:64px 1fr; gap:12px; }.timeline time { font-size:9px; }.timeline h3 { font-size:17px; }.timeline p { font-size:14px; }.work-layout { grid-template-columns:1fr; gap:18px; }.folder-grid { padding:10px; }.folder-card { min-height:135px; }.folder-card i { width:54px; height:38px; }.folder-card span { font-size:7px; }.interest-grid { grid-template-columns:1fr; gap:15px; }.interest-card>div:last-child { min-height:190px; }.contact-section { min-height:70svh; padding:64px 18px; }.contact-body { display:grid; padding:27px 22px; }.contact-body h2 { font-size:29px; }.contact-window footer { font-size:6px; }.cat-door { width:150px; gap:12px; }.cat-door img { width:130px; }.cat-door span { font-size:8px; } }
 @media (prefers-reduced-motion:reduce) { *,*:before,*:after { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
 
+/* A compact, touch-first desktop: controls stay reachable without covering the room. */
+@media (max-width:760px) {
+  .room-stage { height:100svh; min-height:580px; }
+  .desktop-bar { top:8px; width:calc(100% - 16px); height:40px; padding:0 10px; }
+  .desktop-rail { top:62px; left:8px; display:flex; gap:3px; }
+  .desktop-rail a { width:32px; padding:3px 1px; }
+  .desktop-rail a span { display:none; }
+  .desktop-rail b { width:24px; height:24px; }
+  .home-profile-trigger { top:62px; right:9px; }
+  .home-social-rail { top:auto; right:9px; bottom:47px; display:flex; gap:4px; }
+  .home-social-rail a { width:29px; min-height:29px; padding:0; justify-content:center; box-shadow:1px 1px 0 rgba(38,56,43,.3); }
+  .home-social-rail a span { display:none; }
+  .home-social-rail img { width:25px; height:25px; }
+  .scene-hint { left:10px; right:auto; bottom:48px; max-width:54%; line-height:1.45; }
+  .stage-status span:last-child { display:none; }
+}
+
 /* Social links use locally stored platform marks, matching the desktop icon grid. */
 .tag-row { margin-bottom:14px; }
 .social-dock { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; margin:0 0 20px; }

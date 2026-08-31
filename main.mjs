@@ -5,15 +5,19 @@ import roomModelUrl from './assets/logan-room.glb?url'
 
 const canvas = document.querySelector('#room')
 const loader = document.querySelector('#loader')
+const loaderCopy = document.querySelector('#loader-copy')
 const fallback = document.querySelector('#fallback')
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const compactViewport = () => window.matchMedia('(max-width: 760px)').matches
+const shadowEnabled = !compactViewport()
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' })
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, compactViewport() ? 1 : 1.35))
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.outputColorSpace = THREE.SRGBColorSpace
 renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1.05
-renderer.shadowMap.enabled = true
-renderer.shadowMap.type = THREE.PCFSoftShadowMap
+renderer.shadowMap.enabled = shadowEnabled
+renderer.shadowMap.type = THREE.BasicShadowMap
 
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0xeefa58)
@@ -27,7 +31,7 @@ controls.target.set(0, 1.8, 0)
 controls.enableDamping = true
 controls.dampingFactor = 0.06
 controls.enablePan = false
-controls.autoRotate = true
+controls.autoRotate = !reducedMotion && !compactViewport()
 controls.autoRotateSpeed = 0.32
 controls.minDistance = 6
 controls.maxDistance = 18
@@ -39,8 +43,8 @@ controls.maxAzimuthAngle = 1.22
 scene.add(new THREE.HemisphereLight(0xfff6df, 0x657354, 2.65))
 const key = new THREE.DirectionalLight(0xffdfad, 4.2)
 key.position.set(-6, 10, 7)
-key.castShadow = true
-key.shadow.mapSize.set(1024, 1024)
+key.castShadow = shadowEnabled
+key.shadow.mapSize.set(512, 512)
 scene.add(key)
 const fill = new THREE.DirectionalLight(0xc7e1ef, 1.3)
 fill.position.set(7, 4, -4)
@@ -51,7 +55,7 @@ scene.add(room)
 const floor = new THREE.Mesh(new THREE.CircleGeometry(7.6, 64), new THREE.MeshStandardMaterial({ color: 0xd2e567, roughness: 0.95 }))
 floor.rotation.x = -Math.PI / 2
 floor.position.y = -0.02
-floor.receiveShadow = true
+floor.receiveShadow = shadowEnabled
 scene.add(floor)
 
 
@@ -76,14 +80,17 @@ new GLTFLoader().load(
     fitRoom(model)
     model.traverse((child) => {
       if (!child.isMesh) return
-      child.castShadow = true
-      child.receiveShadow = true
+      child.castShadow = shadowEnabled
+      child.receiveShadow = shadowEnabled
       if (child.material) child.material.needsUpdate = true
     })
     room.add(model)
     loader.classList.add('done')
   },
-  undefined,
+  (event) => {
+    if (!event.total) return
+    loaderCopy.textContent = `LOADING ROOM ${Math.round((event.loaded / event.total) * 100)}%`
+  },
   () => {
     loader.classList.add('done')
     fallback.hidden = false
@@ -283,15 +290,24 @@ catDoor.addEventListener('click', () => {
 
 function resizeScene() {
   const { width, height } = canvas.getBoundingClientRect()
+  const compact = width <= 760
+  camera.fov = compact ? 42 : 37
   camera.aspect = width / height
   camera.updateProjectionMatrix()
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, compact ? 1 : 1.35))
   renderer.setSize(width, height, false)
 }
 window.addEventListener('resize', resizeScene)
 if (!renderer.capabilities.isWebGL2 && !renderer.capabilities.isWebGL) fallback.hidden = false
 const clock = new THREE.Clock()
+let pageVisible = !document.hidden
+document.addEventListener('visibilitychange', () => {
+  pageVisible = !document.hidden
+  if (pageVisible) clock.getDelta()
+})
 function animate() {
   requestAnimationFrame(animate)
+  if (!pageVisible) return
   const delta = clock.getDelta()
   room.position.y = Math.sin(clock.getElapsedTime() * 0.42) * 0.025
   if (enteringRoom) {
