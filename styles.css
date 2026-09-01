@@ -164,6 +164,21 @@
 .hackathon-gallery-grid img { display:block; width:100%; height:100%; object-fit:cover; }
 @media (max-width:760px) { .gallery-body { padding:16px; }.gallery-body header>p:last-child { font-size:13px; }.hackathon-gallery-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; } }
 
+/* Third desktop page: direct portfolio viewing gives the imagery, not folder icons, the leading role. */
+.portfolio-window { position:relative; z-index:1; width:min(1080px,100%); margin:auto; transform:rotate(.2deg); }
+.portfolio-window>.window-bar span:last-child { font:7px var(--pixel); opacity:.62; }
+.portfolio-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:3px; padding:12px; background:var(--line); }
+.portfolio-card { display:grid; grid-template-columns:minmax(155px,.94fr) 1.06fr; min-height:252px; overflow:hidden; background:var(--paper); }
+.portfolio-card:nth-child(2),.portfolio-card:nth-child(3) { background:#f6f59a; }
+.portfolio-card img { width:100%; height:100%; min-height:252px; object-fit:cover; border-right:2px solid var(--line); }
+.portfolio-card>div { display:flex; flex-direction:column; align-items:flex-start; padding:19px 18px 16px; }
+.portfolio-card p { margin:0 0 15px; color:var(--orange); font:7px var(--pixel); line-height:1.5; }
+.portfolio-card h3 { margin:0 0 15px; font:clamp(17px,2vw,26px)/1.18 var(--pixel); letter-spacing:-.08em; }
+.portfolio-card span { margin-top:auto; font:13px/1.72 var(--sans); }
+.portfolio-card:hover { position:relative; z-index:1; transform:translate(-3px,-3px); box-shadow:7px 7px 0 var(--line); }
+.portfolio-footer { display:flex; justify-content:space-between; gap:12px; padding:12px; border-top:2px solid var(--line); font:7px var(--pixel); }
+@media (max-width:760px) { .portfolio-grid { grid-template-columns:1fr; padding:8px; gap:2px; }.portfolio-card { grid-template-columns:42% 1fr; min-height:190px; }.portfolio-card img { min-height:190px; }.portfolio-card>div { padding:14px 12px; }.portfolio-card p { margin-bottom:9px; font-size:6px; }.portfolio-card h3 { margin-bottom:9px; font-size:16px; }.portfolio-card span { font-size:12px; line-height:1.55; }.portfolio-footer { font-size:6px; } }
+
 /* Hero identity: type sits directly in front of the 3D room, without a panel. */
 .hero-copy { position:absolute; z-index:5; left:max(92px,calc((100% - 1180px)/2 + 82px)); bottom:72px; width:min(500px,calc(42vw - 18px)); color:var(--ink); text-shadow:2px 2px 0 rgba(255,255,255,.88); }
 .hero-copy-kicker { margin:0 0 12px; color:var(--orange); font:8px var(--pixel); text-shadow:0 1px 0 var(--paper); }
