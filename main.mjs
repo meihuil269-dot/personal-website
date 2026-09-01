@@ -235,12 +235,6 @@ document.querySelector('[data-podcast-detail]').addEventListener('click', (event
   openDetail('关于《不止一百种声音》', 'PODCAST / 200+ GUESTS', '我从大四开始独立制作了这档播客，包括招募嘉宾、制作结构性访谈提纲、剪辑、运营。现已访谈 200+ 位不同行业、不同阶段的嘉宾，覆盖 40+ 种人生话题；同时持续输出 AI 工具实测与创业思考。')
 })
 document.querySelectorAll('a.podcast-action, a.hackathon-action').forEach((link) => link.addEventListener('click', (event) => event.stopPropagation()))
-const hackathonGallery = document.querySelector('#hackathon-gallery')
-document.querySelector('[data-open-hackathon-gallery]').addEventListener('click', (event) => {
-  event.stopPropagation()
-  hackathonGallery.hidden = false
-})
-document.querySelectorAll('[data-close-hackathon-gallery]').forEach((button) => button.addEventListener('click', () => { hackathonGallery.hidden = true }))
 document.querySelectorAll('.filter-row:not(.work-filter) button').forEach((button) => button.addEventListener('click', () => {
   const type = button.textContent.trim().toLowerCase()
   document.querySelectorAll('.filter-row:not(.work-filter) button').forEach((item) => item.classList.toggle('active', item === button))
