@@ -138,19 +138,18 @@
 .pixel-sky { background:#eefa58; background-image:none; }
 .pixel-sky:after,.room-stage:after { display:none; }
 
-/* Hero identity card: editorial copy placed in the reserved lower-left breathing room. */
-.hero-copy { position:absolute; z-index:5; left:max(92px,calc((100% - 1180px)/2 + 82px)); bottom:68px; width:min(500px,calc(42vw - 18px)); padding:20px 23px 17px; border:2px solid var(--line); border-right:0; background:rgba(255,251,214,.84); box-shadow:5px 5px 0 rgba(38,56,43,.17); backdrop-filter:blur(5px); }
-.hero-copy:before { content:""; position:absolute; top:-2px; left:-2px; width:82px; height:5px; background:var(--orange); }
-.hero-copy-kicker { margin:0 0 12px; color:var(--orange); font:8px var(--pixel); }
+/* Hero identity: type sits directly in front of the 3D room, without a panel. */
+.hero-copy { position:absolute; z-index:5; left:max(92px,calc((100% - 1180px)/2 + 82px)); bottom:72px; width:min(500px,calc(42vw - 18px)); color:var(--ink); text-shadow:0 2px 0 rgba(255,251,214,.72),1px 0 0 rgba(255,251,214,.54); }
+.hero-copy-kicker { margin:0 0 12px; color:var(--orange); font:8px var(--pixel); text-shadow:0 1px 0 var(--paper); }
 .hero-copy h1 { margin:0; font:700 clamp(25px,2.1vw,39px)/1.18 var(--sans); letter-spacing:-.08em; }
 .hero-copy-lede { max-width:470px; margin:12px 0 15px; font:600 clamp(14px,1.05vw,17px)/1.6 var(--sans); }
 .hero-copy-notes { display:grid; gap:5px; margin:0 0 15px; padding:0; list-style:none; font:12px/1.55 var(--sans); }
 .hero-copy-notes li { display:flex; align-items:baseline; gap:8px; }
-.hero-copy-notes li:before { content:"✦"; color:var(--orange); font:10px var(--pixel); }
-.hero-copy-motto { margin:0; padding-top:10px; border-top:1px dashed rgba(51,69,47,.55); font:8px/1.7 var(--mono); letter-spacing:.01em; }
+.hero-copy-notes li:before { content:"✦"; color:var(--orange); font:10px var(--pixel); text-shadow:0 1px 0 var(--paper); }
+.hero-copy-motto { margin:0; font:8px/1.7 var(--mono); letter-spacing:.01em; }
 .hero-copy-motto b { color:var(--orange); font-family:var(--pixel); font-size:7px; }
 @media (max-width:760px) {
-  .hero-copy { left:12px; bottom:54px; width:calc(100% - 24px); max-width:440px; padding:14px 15px 12px; border-right:2px solid var(--line); background:rgba(255,251,214,.79); }
+  .hero-copy { left:12px; bottom:54px; width:calc(100% - 24px); max-width:440px; }
   .hero-copy h1 { font-size:22px; }
   .hero-copy-kicker { margin-bottom:8px; font-size:6px; }
   .hero-copy-lede { margin:8px 0 10px; font-size:13px; line-height:1.45; }
