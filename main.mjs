@@ -235,6 +235,15 @@ document.querySelector('[data-podcast-detail]').addEventListener('click', (event
   openDetail('关于《不止一百种声音》', 'PODCAST / 200+ GUESTS', '我从大四开始独立制作了这档播客，包括招募嘉宾、制作结构性访谈提纲、剪辑、运营。现已访谈 200+ 位不同行业、不同阶段的嘉宾，覆盖 40+ 种人生话题；同时持续输出 AI 工具实测与创业思考。')
 })
 document.querySelectorAll('a.podcast-action').forEach((link) => link.addEventListener('click', (event) => event.stopPropagation()))
+const hackathonDetails = {
+  omo: { title: 'OMO 记忆卡片', copy: 'OMO 的记忆卡片素材正在整理中，收到资料后会在这里补充完整项目展示。' },
+  photos: { title: '黑客松照片', copy: '黑客松现场照片正在整理中，收到资料后会在这里补充完整项目展示。' }
+}
+document.querySelectorAll('[data-hackathon-detail]').forEach((button) => button.addEventListener('click', (event) => {
+  event.stopPropagation()
+  const detail = hackathonDetails[button.dataset.hackathonDetail]
+  openDetail(detail.title, 'HACKATHON / OMO', detail.copy)
+}))
 document.querySelectorAll('.filter-row:not(.work-filter) button').forEach((button) => button.addEventListener('click', () => {
   const type = button.textContent.trim().toLowerCase()
   document.querySelectorAll('.filter-row:not(.work-filter) button').forEach((item) => item.classList.toggle('active', item === button))
