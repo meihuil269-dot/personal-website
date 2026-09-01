@@ -119,15 +119,15 @@
 
 /* Final hero composition and large-type controls. Kept last so it wins over component defaults. */
 @media (min-width:761px) {
-  .home-profile-trigger { right:clamp(30px,3vw,68px); font-size:10px; padding:12px 14px; }
-  .home-social-rail { right:clamp(30px,3vw,68px); gap:10px; }
-  .home-social-rail a { width:112px; min-height:44px; font-size:9px; }
-  .home-social-rail img { width:33px; height:33px; }
+  .home-profile-trigger { right:30px; font-size:11px; padding:13px 16px; }
+  .home-social-rail { right:30px; gap:11px; }
+  .home-social-rail a { width:130px; min-height:50px; font-size:10px; }
+  .home-social-rail img { width:37px; height:37px; }
 }
-.pixel-button,.company-action,.podcast-action,.filter-row button,.tag-row button,.quick-questions button,.chatbot-prompts button,.chatbot-form .pixel-button,.bot-form .pixel-button { font-size:10px; }
-.company-action,.podcast-action { min-height:44px; }
-.desktop-rail a { font-size:8px; }
-.desktop-bar nav a,.chat-trigger { font-size:10px; }
+.pixel-button,.company-action,.podcast-action,.filter-row button,.tag-row button,.quick-questions button,.chatbot-prompts button,.chatbot-form .pixel-button,.bot-form .pixel-button { font-size:11px; }
+.company-action,.podcast-action { min-height:48px; }
+.desktop-rail a { font-size:9px; }
+.desktop-bar nav a,.chat-trigger { font-size:11px; }
 @media (max-width:760px) {
   .pixel-button,.company-action,.podcast-action,.filter-row button,.tag-row button,.quick-questions button,.chatbot-prompts button,.chatbot-form .pixel-button,.bot-form .pixel-button { font-size:8px; }
   .desktop-bar nav a,.chat-trigger { font-size:8px; }
