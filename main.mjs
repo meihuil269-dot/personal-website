@@ -235,6 +235,26 @@ document.querySelector('[data-podcast-detail]').addEventListener('click', (event
   openDetail('关于《不止一百种声音》', 'PODCAST / 200+ GUESTS', '我从大四开始独立制作了这档播客，包括招募嘉宾、制作结构性访谈提纲、剪辑、运营。现已访谈 200+ 位不同行业、不同阶段的嘉宾，覆盖 40+ 种人生话题；同时持续输出 AI 工具实测与创业思考。')
 })
 document.querySelectorAll('a.podcast-action, a.hackathon-action').forEach((link) => link.addEventListener('click', (event) => event.stopPropagation()))
+const mediaDetails = {
+  intro: {
+    title: '影视内容创作 · 项目介绍',
+    type: 'CONTENT CREATION / MEDIA',
+    sections: [
+      ['个人定位', '影视剧自媒体博主、哔哩哔哩影视区 UP 主，长期进行影视内容策划、视频剪辑与账号运营。累计创作 300 余条视频，其中独立完成 200 余条视频的选题策划、素材整理、剪辑包装与发布运营，内容涵盖影视剧二次创作、AIGC 视频、影视评论及生活 Vlog 等方向。'],
+      ['平台数据', '哔哩哔哩账号拥有 1000+ 粉丝，累计播放量超过 300 万；小红书账号拥有 1000+ 粉丝，累计获赞与收藏 14 万+。通过持续稳定的内容输出，逐步形成以影视审美、情绪表达和青年文化为核心的个人内容风格。'],
+      ['内容方向', '主要围绕电影、电视剧及流行文化进行内容创作，包括影视混剪、人物群像、角色解析、情绪向剪辑、剧情二次创作、AIGC 影像实验和生活 Vlog。根据不同平台的内容生态与用户偏好，分别制定选题方向、视频节奏、封面风格和发布策略。'],
+      ['个人职责', '独立负责账号定位、内容策划、热点分析、影视素材筛选、脚本与文案撰写、视频剪辑、音乐选择、字幕设计、调色包装、封面制作、标题优化及账号运营。通过分析播放量、完播率、互动量和用户反馈，持续优化视频开场、叙事节奏与内容结构。'],
+      ['使用软件', 'Adobe Premiere Pro、Adobe After Effects、Adobe Photoshop、剪映、Midjourney、即梦、ChatGPT 及其他 AIGC 视频工具。'],
+      ['成果', '累计创作 300 余条视频，独立完成 200 余条视频剪辑，哔哩哔哩总播放量超过 300 万，小红书累计获赞与收藏 14 万+。在持续运营过程中，形成从选题策划、视觉包装到内容发布与数据复盘的完整创作流程，积累影视内容策划、视听语言表达、热点捕捉和多平台账号运营经验。']
+    ]
+  },
+  video: { title: '爆款视频', type: 'CONTENT CREATION / MEDIA', sections: [['素材待补充', '等你发来爆款视频的链接或封面后，我会在这里补充可直接打开的作品展示。']] },
+  note: { title: '爆款笔记', type: 'CONTENT CREATION / MEDIA', sections: [['素材待补充', '等你发来爆款笔记的链接或截图后，我会在这里补充可直接打开的作品展示。']] }
+}
+document.querySelectorAll('[data-media-detail]').forEach((button) => button.addEventListener('click', (event) => {
+  event.stopPropagation()
+  openPortfolioDetail(mediaDetails[button.dataset.mediaDetail])
+}))
 const portfolioDetails = {
   rongyi: {
     title: '容医 · 智能医疗服务系统',
