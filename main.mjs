@@ -235,6 +235,61 @@ document.querySelector('[data-podcast-detail]').addEventListener('click', (event
   openDetail('关于《不止一百种声音》', 'PODCAST / 200+ GUESTS', '我从大四开始独立制作了这档播客，包括招募嘉宾、制作结构性访谈提纲、剪辑、运营。现已访谈 200+ 位不同行业、不同阶段的嘉宾，覆盖 40+ 种人生话题；同时持续输出 AI 工具实测与创业思考。')
 })
 document.querySelectorAll('a.podcast-action, a.hackathon-action').forEach((link) => link.addEventListener('click', (event) => event.stopPropagation()))
+const portfolioDetails = {
+  rongyi: {
+    title: '容医 · 智能医疗服务系统',
+    type: 'SERVICE DESIGN / 01',
+    sections: [
+      ['项目经验', '面向偏远地区农民就医困难的问题，完成“容医”智能医疗服务系统设计。项目围绕偏远地区医疗资源不足、交通不便、就医成本较高以及信息获取困难等痛点，构建连接农民、乡镇卫生所、小城镇医院、移动医疗车和村委会等利益相关者的医疗服务体系。'],
+      ['背景', '偏远地区的农民在就医过程中普遍面临医疗资源分布不均、出行距离较远、专业医疗人员不足和就医流程复杂等问题。“容医”通过智能医疗设备、移动医疗车和数字化服务平台，将基础检查、远程问诊、预约转诊和健康管理等服务延伸至乡村。'],
+      ['职责', '负责前期背景研究、竞品分析、用户调研、用户画像、用户旅程、利益相关者分析、价值主张画布、服务系统图、服务蓝图、关键洞察点及移动端 UI 界面设计。'],
+      ['使用软件', 'Adobe Illustrator、Adobe Photoshop、Fabrie、Figma、Midjourney、ChatGPT。'],
+      ['成果', '通过定量研究收集 200 份用户信息并完成清洗分析；通过定性研究电话访谈 20 位偏远地区用户。最终完成服务系统、价值主张画布、服务蓝图、用户旅程、关键触点及部分移动端功能设计，为降低就医成本、缩短就医路径并提升医疗体验提供可执行方案。']
+    ]
+  },
+  yacht: {
+    title: '船舶 · 室内设计',
+    type: 'SPATIAL DESIGN / 02',
+    sections: [
+      ['项目经验', '以海洋文化与日式美学为灵感，完成小型游艇自助餐厅的室内空间设计。项目将浮世绘、海浪纹样、纸灯笼等视觉元素融入船舶空间，探索文化主题、空间体验与游艇商业运营相结合的设计模式。'],
+      ['背景', '以一艘价值约 600 万元、可容纳约 32 人的五星级小型游艇为对象，针对传统游艇空间功能单一、文化特色不足和运营成本较高等问题，将船舱改造为集餐饮、观景、社交与文化体验于一体的休闲空间。'],
+      ['职责', '进行案例研究、目标用户与空间需求分析、主题概念提炼、功能分区规划、空间动线设计、平面布局绘制、手绘效果图表现、室内软装搭配、细节方案及商业模式设计。'],
+      ['使用软件', 'AutoCAD、SketchUp、Adobe Photoshop、Adobe Illustrator、Midjourney、ChatGPT。'],
+      ['成果', '完成概念方案、平面图、手绘效果图、空间效果展示及商业模式设计；在有限船舱内实现用餐、观景和社交等多种功能，形成具有鲜明海洋文化辨识度的沉浸式餐饮环境。']
+    ]
+  },
+  stationery: {
+    title: '组合式多功能文具收纳盒',
+    type: 'PRODUCT DESIGN / 03',
+    sections: [
+      ['项目经验', '围绕“产品语意”与儿童积木形态开展文创产品设计，完成一款由胶水、橡皮、胶棒、四色荧光笔及双色胶带组合而成的多功能文具收纳盒。产品通过“加、减、乘、除”四种符号建立视觉识别。'],
+      ['背景', '针对学生文具种类多、容易丢失、桌面收纳混乱以及传统文具盒功能单一等问题，将儿童积木的组合方式与数学符号的视觉语意融入设计，以模块化结构整合多种常用文具。'],
+      ['职责', '进行市场与竞品调研、目标用户分析、使用场景梳理、情绪板制作、产品语意提炼、草图绘制、功能结构设计、模块组合探索、色彩与材质方案制定、三维建模、产品渲染以及爆炸图和细节展示。'],
+      ['使用软件', 'Rhinoceros、KeyShot、Adobe Photoshop、Adobe Illustrator、Midjourney、ChatGPT。'],
+      ['成果', '完成从前期调研、概念草图到三维建模、效果渲染及展示版式设计的完整流程。方案将多种文具整合为可拆卸、可替换的模块化产品；透明外壳便于观察内部物品，柔和莫兰迪配色强化亲和力与辨识度。']
+    ]
+  },
+  visual: {
+    title: '平面设计、手绘与视频剪辑',
+    type: 'VISUAL PRACTICE / 04',
+    sections: [
+      ['项目经验', '围绕平面视觉、产品表现和动态影像开展多类型创作实践，涵盖海报设计、字体与版式实验、主题插画、产品建模渲染、工业设计手绘及短视频剪辑等方向。'],
+      ['背景', '在个人创作与课程实践中，围绕艺术文化、青年情绪、社会议题、产品概念和影像传播等主题开展设计。平面作品注重字体、色彩和图形语言的实验性；手绘侧重产品形态推演与结构表达；视频结合影视、音乐与网络文化进行内容策划和视听语言探索。'],
+      ['职责', '负责创意主题策划、资料与视觉素材收集、情绪板制作、字体与版式设计、海报视觉系统设计、插画绘制、产品草图与形态推演、三维建模与渲染、视频脚本构思、素材筛选、剪辑节奏控制、字幕包装及封面设计。'],
+      ['使用软件', 'Adobe Photoshop、Adobe Illustrator、Adobe Premiere、Adobe After Effects、Procreate、Rhinoceros、KeyShot、Midjourney、ChatGPT。'],
+      ['成果', '完成多组主题海报、视觉实验、产品渲染、工业设计手绘及短视频作品，形成个人创作体系；部分单条视频播放量达到数十万，展现跨媒介整合与独立完成项目的能力。']
+    ]
+  }
+}
+function openPortfolioDetail(detail) {
+  document.querySelector('#detail-title').textContent = detail.title
+  document.querySelector('#detail-type').textContent = detail.type
+  document.querySelector('#detail-kicker').textContent = `${detail.type.replaceAll(' ', '_')}.TXT`
+  document.querySelector('#detail-copy').innerHTML = detail.sections.map(([heading, copy]) => `<section><b>${heading}</b><p>${copy}</p></section>`).join('')
+  document.querySelector('#detail-image').hidden = true
+  detailDialog.hidden = false
+}
+document.querySelectorAll('[data-portfolio-detail]').forEach((button) => button.addEventListener('click', () => openPortfolioDetail(portfolioDetails[button.dataset.portfolioDetail])))
 document.querySelectorAll('.filter-row:not(.work-filter) button').forEach((button) => button.addEventListener('click', () => {
   const type = button.textContent.trim().toLowerCase()
   document.querySelectorAll('.filter-row:not(.work-filter) button').forEach((item) => item.classList.toggle('active', item === button))
