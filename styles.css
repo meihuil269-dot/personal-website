@@ -147,6 +147,20 @@
 .hackathon-action b { font-size:14px; }
 @media (max-width:480px) { .hackathon-actions { grid-template-columns:1fr; }.hackathon-card { grid-template-columns:54px 1fr; }.hackathon-card img { width:54px; height:54px; }.hackathon-action { font-size:8px; } }
 
+/* The photo archive opens as a familiar desktop window, while originals remain available on click. */
+.gallery-window { width:min(1040px,100%); max-height:calc(100svh - 48px); overflow:auto; }
+.gallery-body { padding:22px; }
+.gallery-body header { display:grid; grid-template-columns:1fr auto; gap:5px 18px; align-items:end; margin:0 0 18px; }
+.gallery-body .eyebrow,.gallery-body h2,.gallery-body header>p:last-child { grid-column:1; }
+.gallery-body .eyebrow { margin:0; color:var(--orange); font:8px var(--pixel); }
+.gallery-body h2 { margin:0; font:clamp(23px,3vw,38px)/1.1 var(--pixel); letter-spacing:-.08em; }
+.gallery-body header>p:last-child { max-width:680px; margin:2px 0 0; font-size:14px; line-height:1.65; }
+.hackathon-gallery-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:9px; }
+.hackathon-gallery-grid a { display:block; aspect-ratio:1/1; overflow:hidden; border:2px solid var(--line); background:var(--paper); box-shadow:2px 2px 0 rgba(38,56,43,.24); }
+.hackathon-gallery-grid a:hover { transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--line); }
+.hackathon-gallery-grid img { display:block; width:100%; height:100%; object-fit:cover; }
+@media (max-width:760px) { .gallery-body { padding:16px; }.gallery-body header>p:last-child { font-size:13px; }.hackathon-gallery-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; } }
+
 /* Hero identity: type sits directly in front of the 3D room, without a panel. */
 .hero-copy { position:absolute; z-index:5; left:max(92px,calc((100% - 1180px)/2 + 82px)); bottom:72px; width:min(500px,calc(42vw - 18px)); color:var(--ink); text-shadow:2px 2px 0 rgba(255,255,255,.88); }
 .hero-copy-kicker { margin:0 0 12px; color:var(--orange); font:8px var(--pixel); text-shadow:0 1px 0 var(--paper); }
