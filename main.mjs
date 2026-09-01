@@ -64,13 +64,14 @@ function fitRoom(object) {
   const bounds = new THREE.Box3().setFromObject(object)
   const size = bounds.getSize(new THREE.Vector3())
   const center = bounds.getCenter(new THREE.Vector3())
-  const scale = 7.1 / Math.max(size.x, size.z)
+  // Make the room the full hero backdrop instead of a small object on the left.
+  const scale = 11.3 / Math.max(size.x, size.z)
   object.scale.setScalar(scale)
   bounds.setFromObject(object)
   const fittedCenter = bounds.getCenter(new THREE.Vector3())
   object.position.sub(fittedCenter)
   object.position.y -= bounds.min.y
-  object.position.x += 0.9
+  object.position.x += 1.25
   object.rotation.y = -0.38
 }
 

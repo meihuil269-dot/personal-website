@@ -32,6 +32,24 @@
   .stage-status span:last-child { display:none; }
 }
 
+/* Desktop hero: the room is the main backdrop, with controls kept in the outer margin. */
+@media (min-width:761px) {
+  .home-profile-trigger { right:clamp(30px,3vw,68px); font-size:10px; padding:12px 14px; }
+  .home-social-rail { right:clamp(30px,3vw,68px); gap:10px; }
+  .home-social-rail a { width:112px; min-height:44px; font-size:9px; }
+  .home-social-rail img { width:33px; height:33px; }
+}
+
+/* Shared button sizing improves legibility without changing the pixel style. */
+.pixel-button,.company-action,.podcast-action,.filter-row button,.tag-row button,.quick-questions button,.chatbot-prompts button,.chatbot-form .pixel-button,.bot-form .pixel-button { font-size:10px; }
+.company-action,.podcast-action { min-height:44px; }
+.desktop-rail a { font-size:8px; }
+.desktop-bar nav a,.chat-trigger { font-size:10px; }
+@media (max-width:760px) {
+  .pixel-button,.company-action,.podcast-action,.filter-row button,.tag-row button,.quick-questions button,.chatbot-prompts button,.chatbot-form .pixel-button,.bot-form .pixel-button { font-size:8px; }
+  .desktop-bar nav a,.chat-trigger { font-size:8px; }
+}
+
 /* Social links use locally stored platform marks, matching the desktop icon grid. */
 .tag-row { margin-bottom:14px; }
 .social-dock { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; margin:0 0 20px; }
@@ -98,3 +116,19 @@
 
 /* Persistent LuluBot conversation area, backed by public-profile facts. */
 .chatbot-window { width:min(960px,100%); }.bot-online { color:var(--orange); font:8px var(--pixel); white-space:nowrap; }.chatbot-body { display:grid; grid-template-columns:.82fr 1.18fr; gap:28px; padding:34px; }.chatbot-body header h2 { margin:0; font:clamp(27px,4vw,49px)/1.12 var(--pixel); letter-spacing:-.08em; }.chatbot-body header>p:not(.eyebrow) { margin:17px 0 0; font-size:15px; line-height:1.75; }.chatbot-panel { min-width:0; }.chatbot-messages { min-height:185px; max-height:310px; overflow:auto; padding:16px; border:2px solid var(--line); background:#f8f69c; }.chatbot-messages p { margin:0 0 13px; font-size:15px; line-height:1.75; }.chatbot-messages p:last-child { margin:0; }.chatbot-prompts { display:flex; flex-wrap:wrap; gap:7px; margin:10px 0; }.chatbot-prompts button { padding:8px 9px; border:2px solid var(--line); background:var(--paper); color:var(--ink); font:8px var(--pixel); cursor:pointer; }.chatbot-prompts button:hover { background:var(--lime); }.chatbot-form { display:flex; gap:8px; }.chatbot-form input { min-width:0; flex:1; padding:11px; border:2px solid var(--line); background:var(--paper); color:var(--ink); font:14px var(--sans); }.chatbot-form .pixel-button { padding:10px 12px; font-size:7px; }.chatbot-panel small { display:block; margin-top:10px; font:9px/1.5 var(--mono); }.chatbot-window footer { display:flex; justify-content:space-between; gap:12px; padding:12px; border-top:2px solid var(--line); font:7px var(--pixel); }.chatbot-window footer a { text-decoration:underline; text-underline-offset:4px; } @media (max-width:760px) { .chatbot-body { grid-template-columns:1fr; gap:22px; padding:25px 20px; }.chatbot-window footer { font-size:6px; }.chatbot-form .pixel-button { gap:5px; } }
+
+/* Final hero composition and large-type controls. Kept last so it wins over component defaults. */
+@media (min-width:761px) {
+  .home-profile-trigger { right:clamp(30px,3vw,68px); font-size:10px; padding:12px 14px; }
+  .home-social-rail { right:clamp(30px,3vw,68px); gap:10px; }
+  .home-social-rail a { width:112px; min-height:44px; font-size:9px; }
+  .home-social-rail img { width:33px; height:33px; }
+}
+.pixel-button,.company-action,.podcast-action,.filter-row button,.tag-row button,.quick-questions button,.chatbot-prompts button,.chatbot-form .pixel-button,.bot-form .pixel-button { font-size:10px; }
+.company-action,.podcast-action { min-height:44px; }
+.desktop-rail a { font-size:8px; }
+.desktop-bar nav a,.chat-trigger { font-size:10px; }
+@media (max-width:760px) {
+  .pixel-button,.company-action,.podcast-action,.filter-row button,.tag-row button,.quick-questions button,.chatbot-prompts button,.chatbot-form .pixel-button,.bot-form .pixel-button { font-size:8px; }
+  .desktop-bar nav a,.chat-trigger { font-size:8px; }
+}
