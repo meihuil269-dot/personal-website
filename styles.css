@@ -139,11 +139,11 @@
 .pixel-sky:after,.room-stage:after { display:none; }
 
 /* Hero identity: type sits directly in front of the 3D room, without a panel. */
-.hero-copy { position:absolute; z-index:5; left:max(92px,calc((100% - 1180px)/2 + 82px)); bottom:72px; width:min(500px,calc(42vw - 18px)); color:var(--ink); text-shadow:0 2px 0 rgba(255,251,214,.72),1px 0 0 rgba(255,251,214,.54); }
+.hero-copy { position:absolute; z-index:5; left:max(92px,calc((100% - 1180px)/2 + 82px)); bottom:72px; width:min(500px,calc(42vw - 18px)); color:var(--ink); text-shadow:4px 4px 0 rgba(255,255,255,.96),7px 7px 0 rgba(255,255,255,.52); }
 .hero-copy-kicker { margin:0 0 12px; color:var(--orange); font:8px var(--pixel); text-shadow:0 1px 0 var(--paper); }
-.hero-copy h1 { margin:0; font:300 clamp(25px,2.1vw,39px)/1.24 "Noto Serif SC","Songti SC","STSong",serif; letter-spacing:-.07em; }
-.hero-copy-lede { max-width:470px; margin:12px 0 15px; font:400 clamp(14px,1.05vw,17px)/1.68 "Noto Serif SC","Songti SC","STSong",serif; letter-spacing:.01em; }
-.hero-copy-notes { display:grid; gap:5px; margin:0 0 15px; padding:0; list-style:none; font:400 12px/1.62 "Noto Serif SC","Songti SC","STSong",serif; letter-spacing:.02em; }
+.hero-copy h1 { margin:0; font:clamp(22px,1.78vw,32px)/1.34 var(--pixel); letter-spacing:-.08em; }
+.hero-copy-lede { max-width:470px; margin:14px 0 17px; font:clamp(11px,.82vw,14px)/1.75 var(--pixel); letter-spacing:-.04em; }
+.hero-copy-notes { display:grid; gap:8px; margin:0 0 18px; padding:0; list-style:none; font:clamp(9px,.63vw,11px)/1.7 var(--pixel); letter-spacing:-.04em; }
 .hero-copy-notes li { display:flex; align-items:baseline; gap:8px; }
 .hero-copy-notes li:before { content:"✦"; color:var(--orange); font:10px var(--pixel); text-shadow:0 1px 0 var(--paper); }
 .hero-copy-motto { margin:0; font:8px/1.7 var(--mono); letter-spacing:.01em; }
