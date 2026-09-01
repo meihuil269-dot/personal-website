@@ -321,61 +321,6 @@ document.querySelectorAll('[data-work-filter]').forEach((button) => button.addEv
   document.querySelectorAll('.folder-card').forEach((card) => { card.hidden = type !== 'all' && card.dataset.workType !== type })
 }))
 
-const stickyStorageKey = 'chenlu-chat-sticky-notes-v1'
-const stickyForm = document.querySelector('#sticky-form')
-const stickyNotes = document.querySelector('#sticky-notes')
-const stickyCount = document.querySelector('#sticky-count')
-const stickyName = document.querySelector('#sticky-name')
-const stickyMessage = document.querySelector('#sticky-message')
-const noteRotations = ['-2deg', '1.4deg', '-.8deg', '2.1deg', '-1.1deg', '.7deg']
-
-function escapeNote(value) {
-  return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;')
-}
-
-function readStickyNotes() {
-  try {
-    const stored = JSON.parse(window.localStorage.getItem(stickyStorageKey) || '[]')
-    return Array.isArray(stored) ? stored.filter((note) => typeof note?.message === 'string') : []
-  } catch {
-    return []
-  }
-}
-
-function writeStickyNotes(notes) {
-  try { window.localStorage.setItem(stickyStorageKey, JSON.stringify(notes)) } catch { /* Private mode can disable local storage. */ }
-}
-
-function renderStickyNotes(notes) {
-  stickyCount.textContent = `${notes.length} ${notes.length === 1 ? 'NOTE' : 'NOTES'}`
-  if (!notes.length) {
-    stickyNotes.innerHTML = '<p class="sticky-empty">第一张便利贴，等你留下。</p>'
-    return
-  }
-  stickyNotes.innerHTML = notes.slice().reverse().map((note, index) => {
-    const name = escapeNote(note.name || '匿名访客')
-    const message = escapeNote(note.message).replaceAll('\n', '<br />')
-    const time = new Date(note.createdAt).toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })
-    return `<article class="sticky-note" style="--note-rotation:${noteRotations[index % noteRotations.length]}"><p class="sticky-note-meta"><b>${name}</b><time>${time}</time></p><p>${message}</p></article>`
-  }).join('')
-}
-
-let visitorNotes = readStickyNotes()
-renderStickyNotes(visitorNotes)
-stickyForm.addEventListener('submit', (event) => {
-  event.preventDefault()
-  const message = stickyMessage.value.trim()
-  if (!message) {
-    stickyMessage.focus()
-    return
-  }
-  visitorNotes = [...visitorNotes, { name: stickyName.value.trim(), message, createdAt: Date.now() }].slice(-30)
-  writeStickyNotes(visitorNotes)
-  renderStickyNotes(visitorNotes)
-  stickyForm.reset()
-  stickyMessage.focus()
-})
-
 const homeDialog = document.querySelector('#home-dialog')
 const profileTrigger = document.querySelector('[data-open-home-dialog]')
 const closeProfileTrigger = document.querySelector('[data-close-home-dialog]')
