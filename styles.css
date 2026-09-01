@@ -175,12 +175,12 @@
 .portfolio-card p { margin:0 0 15px; color:var(--orange); font:7px var(--pixel); line-height:1.5; }
 .portfolio-card h3 { margin:0 0 15px; font:clamp(17px,2vw,26px)/1.18 var(--pixel); letter-spacing:-.08em; }
 .portfolio-card span { margin:0; font:13px/1.72 var(--sans); }
-.portfolio-open { display:inline-flex; align-items:center; gap:11px; margin-top:16px; padding:8px 10px; border:2px solid var(--line); background:var(--lime); color:var(--ink); box-shadow:2px 2px 0 var(--line); font:8px var(--pixel); cursor:pointer; }
-.portfolio-open:hover { transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--line); background:var(--paper); }
+.portfolio-open { display:inline-flex; align-items:center; gap:15px; min-height:48px; margin-top:16px; padding:12px 14px; border:2px solid var(--line); background:var(--lime); color:var(--ink); box-shadow:3px 3px 0 var(--line); font:11px var(--pixel); cursor:pointer; }
+.portfolio-open:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--line); background:var(--paper); }
 .portfolio-open b { font-size:13px; }
 .portfolio-card:hover { position:relative; z-index:1; transform:translate(-3px,-3px); box-shadow:7px 7px 0 var(--line); }
 .portfolio-footer { display:flex; justify-content:space-between; gap:12px; padding:12px; border-top:2px solid var(--line); font:7px var(--pixel); }
-@media (max-width:760px) { .portfolio-grid { grid-template-columns:1fr; padding:8px; gap:2px; }.portfolio-card { grid-template-columns:42% 1fr; min-height:190px; }.portfolio-card img { min-height:190px; }.portfolio-card>div { padding:14px 12px; }.portfolio-card p { margin-bottom:9px; font-size:6px; }.portfolio-card h3 { margin-bottom:9px; font-size:16px; }.portfolio-card span { font-size:12px; line-height:1.55; }.portfolio-open { margin-top:11px; padding:7px 8px; font-size:7px; }.portfolio-footer { font-size:6px; } }
+@media (max-width:760px) { .portfolio-grid { grid-template-columns:1fr; padding:8px; gap:2px; }.portfolio-card { grid-template-columns:42% 1fr; min-height:190px; }.portfolio-card img { min-height:190px; }.portfolio-card>div { padding:14px 12px; }.portfolio-card p { margin-bottom:9px; font-size:6px; }.portfolio-card h3 { margin-bottom:9px; font-size:16px; }.portfolio-card span { font-size:12px; line-height:1.55; }.portfolio-open { min-height:40px; margin-top:11px; padding:8px 9px; font-size:8px; }.portfolio-footer { font-size:6px; } }
 
 .detail-content #detail-copy { flex:1; min-width:0; }
 .detail-content #detail-copy section { margin:0 0 16px; }

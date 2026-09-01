@@ -168,6 +168,9 @@
           document.querySelector('#detail-image').hidden = true
           document.querySelector('#detail-dialog').hidden = false
         }))
+        document.querySelectorAll('[data-close-detail]').forEach((button) => button.addEventListener('click', () => {
+          document.querySelector('#detail-dialog').hidden = true
+        }))
 
         // Avoid an unclickable loading layer if local module loading is restricted.
         window.setTimeout(() => loadingScreen.classList.add('done'), 1800)
