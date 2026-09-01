@@ -10,9 +10,11 @@ const loaderCopy = document.querySelector('#loader-copy')
 const fallback = document.querySelector('#fallback')
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const compactViewport = () => window.matchMedia('(max-width: 760px)').matches
-const shadowEnabled = !compactViewport()
+// The original GLB already contains its intended lighting. Avoid adding a second,
+// browser-generated shadow pass over it.
+const shadowEnabled = false
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' })
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, compactViewport() ? 1 : 1.35))
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, compactViewport() ? 1.5 : 1.75))
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.outputColorSpace = THREE.SRGBColorSpace
 renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -298,7 +300,7 @@ function resizeScene() {
   camera.fov = compact ? 42 : 37
   camera.aspect = width / height
   camera.updateProjectionMatrix()
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, compact ? 1 : 1.35))
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, compact ? 1.5 : 1.75))
   renderer.setSize(width, height, false)
 }
 window.addEventListener('resize', resizeScene)
