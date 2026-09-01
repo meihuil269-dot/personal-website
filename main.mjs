@@ -313,7 +313,7 @@ document.querySelectorAll('[data-portfolio-detail]').forEach((button) => button.
 document.querySelectorAll('.filter-row:not(.work-filter) > button, .media-filter > button[data-filter]').forEach((button) => button.addEventListener('click', () => {
   const type = button.dataset.filter
   document.querySelectorAll('.filter-row:not(.work-filter) > button, .media-filter > button[data-filter]').forEach((item) => item.classList.toggle('active', item === button))
-  document.querySelectorAll('.timeline article').forEach((article) => { article.hidden = type !== 'all' && article.dataset.type !== type })
+  document.querySelectorAll('.timeline article').forEach((article) => { article.hidden = type !== 'all' && !article.dataset.type.split(' ').includes(type) })
 }))
 document.querySelectorAll('[data-work-filter]').forEach((button) => button.addEventListener('click', () => {
   const type = button.dataset.workFilter
