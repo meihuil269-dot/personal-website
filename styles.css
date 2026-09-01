@@ -132,3 +132,8 @@
   .pixel-button,.company-action,.podcast-action,.filter-row button,.tag-row button,.quick-questions button,.chatbot-prompts button,.chatbot-form .pixel-button,.bot-form .pixel-button { font-size:8px; }
   .desktop-bar nav a,.chat-trigger { font-size:8px; }
 }
+
+/* Keep one uninterrupted room-colour backdrop behind the canvas at every size. */
+.room-stage { background:#eefa58; }
+.pixel-sky { background:#eefa58; background-image:none; }
+.pixel-sky:after,.room-stage:after { display:none; }
