@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
 import roomModelUrl from './assets/logan-room.glb?url'
 
 const canvas = document.querySelector('#room')
@@ -73,7 +74,9 @@ function fitRoom(object) {
   object.rotation.y = -0.38
 }
 
-new GLTFLoader().load(
+const gltfLoader = new GLTFLoader()
+gltfLoader.setMeshoptDecoder(MeshoptDecoder)
+gltfLoader.load(
   roomModelUrl,
   (gltf) => {
     const model = gltf.scene
