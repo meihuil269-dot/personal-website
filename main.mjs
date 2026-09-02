@@ -3,6 +3,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
 import roomModelUrl from './assets/logan-room.glb?url'
+import wechatLogoUrl from './assets/social/handdrawn/8e2b3f2e-1713-4ce6-9887-42dd4efe3714.png?url'
 
 const canvas = document.querySelector('#room')
 const loader = document.querySelector('#loader')
@@ -240,11 +241,12 @@ const mediaDetails = {
     title: '哔哩哔哩 · 影视内容创作与账号运营',
     type: 'MEDIA / BILIBILI',
     sections: [
-      ['账号定位', '哔哩哔哩影视区 UP 主，主要围绕电影、电视剧、角色人物和流行文化进行视频创作。通过影视素材重组、音乐设计与情绪化叙事，探索影视内容的二次表达，逐步形成具有个人审美与情绪感染力的创作风格。'],
-      ['内容方向', '影视混剪、人物群像、角色解析、剧情二次创作、日常 Vlog 及 AIGC 影像实验等。根据影视热点、人物特征和用户兴趣完成选题策划，并通过画面、台词、音乐与剪辑节奏的组合增强叙事性和传播力。'],
-      ['个人职责', '独立负责账号定位、选题策划、影视素材收集与筛选、脚本和文案撰写、视频剪辑、音乐选择、字幕设计、画面调色、特效包装、封面制作、标题优化、内容发布及数据复盘。'],
-      ['使用软件', 'Adobe Premiere、Adobe After Effects、Adobe Photoshop、剪映、Midjourney、即梦、Lovart、Tapnow。'],
-      ['运营成果', '累计发布约 300 条视频；账号粉丝数量 1000+，视频累计播放量超过 300 万。核心数据：300 条视频｜200+ 独立剪辑｜1000+ 粉丝｜300 万+ 累计播放量。']
+      ['账号定位', '哔哩哔哩影视区UP主，主要围绕电影、电视剧、角色人物和流行文化进行视频创作。通过影视素材重组、音乐设计与情绪化叙事，探索影视内容的二次表达，逐步形成具有个人审美与情绪感染力的创作风格。'],
+      ['内容方向', '内容涵盖影视混剪、人物群像、角色解析、剧情二次创作、日常vlog及AIGC影像实验等。根据影视热点、人物特征和用户兴趣完成选题策划，并通过画面、台词、音乐与剪辑节奏的组合，增强内容的叙事性和传播力。'],
+      ['个人职责', '独立负责账号定位、选题策划、影视素材收集与筛选、脚本和文案撰写、视频剪辑、音乐选择、字幕设计、画面调色、特效包装、封面制作、标题优化、内容发布及数据复盘。根据播放量、完播率、点赞、投币、收藏和评论等数据持续调整内容结构与创作方向。'],
+      ['使用软件', 'Adobe Premiere、Adobe After Effects、Adobe Photoshop、剪映、Midjourney、即梦、Lovart、Tapnow'],
+      ['运营成果', '累计发布约300条视频；账号粉丝数量1000+，视频累计播放量超过300万。通过长期稳定的内容输出，积累了影视内容策划、视听语言表达、热点捕捉、视频包装及平台运营经验。'],
+      ['核心数据', '300条视频｜200+独立剪辑｜1000+粉丝｜300万+累计播放量']
     ]
   },
   xiaohongshu: {
@@ -252,37 +254,37 @@ const mediaDetails = {
     type: 'MEDIA / XIAOHONGSHU',
     sections: [
       ['账号定位', '影视与设计自媒体博主，以电影、书籍、设计和个人生活观察为主要内容方向。通过图文、短视频分享具有审美表达、情绪共鸣和个人观点的内容。'],
-      ['内容方向', '影视剧推荐、人物与角色表达、影视二次创作、AIGC 视频、生活 Vlog 及个人审美分享等。结合小红书用户的浏览习惯，将影视内容转化为更具话题性、情绪价值和视觉吸引力的短内容。'],
-      ['个人职责', '独立负责账号内容定位、选题策划、热点追踪、资料与素材收集、脚本及文案撰写、视频剪辑、图文排版、封面设计、标题优化、话题标签选择、笔记发布以及互动数据复盘。'],
-      ['使用软件', 'Adobe Premiere Pro、Adobe Photoshop、Adobe Illustrator、剪映、醒图、Midjourney、即梦、ChatGPT。'],
-      ['运营成果', '账号粉丝数量 1000+，累计获赞与收藏 14 万+；已形成从内容策划、视觉包装到发布运营与数据分析的完整创作流程。']
+      ['内容方向', '内容涵盖影视剧推荐、人物与角色表达、影视二次创作、AIGC视频、生活Vlog及个人审美分享等。结合小红书用户的浏览习惯，将影视内容转化为更具话题性、情绪价值和视觉吸引力的短内容，并通过统一的封面与版式设计强化账号辨识度。'],
+      ['个人职责', '独立负责账号内容定位、选题策划、热点追踪、资料与素材收集、脚本及文案撰写、视频剪辑、图文排版、封面设计、标题优化、话题标签选择、笔记发布以及互动数据复盘。根据用户的点赞、收藏、评论和关注转化情况，持续优化内容方向与视觉呈现。'],
+      ['使用软件', 'Adobe Premiere Pro、Adobe Photoshop、Adobe Illustrator、剪映、醒图、Midjourney、即梦、ChatGPT'],
+      ['运营成果', '账号粉丝数量1000+，累计获赞与收藏14万+。通过对影视热点、用户情绪和平台传播趋势的持续观察，形成了从内容策划、视觉包装到发布运营与数据分析的完整创作流程，提升了内容传播力和用户互动表现。']
     ]
   },
   wechat: {
     title: '微信公众号 · AI 科技与人文内容运营',
     type: 'MEDIA / WECHAT',
     sections: [
-      ['账号定位', '观猹（AI 测评网站）签约 AI 博主，持续关注人工智能前沿技术、科技创业与人文文化领域。通过产品测评、行业观察、活动报道和观点文章，将复杂的 AI 概念转化为清晰、易读且具有个人视角的内容。'],
-      ['内容方向', 'AI 产品测评、OPC、大模型、AI Native、世界模型、AIGC 应用及人工智能行业趋势；也关注复旦科创活动、创业项目路演、YC 创业生态、投融资动态、应用心理学、个体成长、电影评论及书影音分享。'],
-      ['个人职责', '独立负责公众号定位、内容规划、前沿资讯追踪、选题策划、资料研究、产品体验、文章撰写、采访整理、图片制作、版式设计、标题优化、内容发布及阅读数据复盘。'],
-      ['使用软件', 'Adobe Photoshop、Adobe Illustrator、Fabrie、秀米、Midjourney、ChatGPT。'],
-      ['运营成果', '完成多篇 AI 产品测评、前沿技术观察、科创活动报道、创业路演分析、心理学科普及电影分享文章，逐步建立兼具科技敏感度与人文表达的个人内容体系。']
+      ['账号定位', '观猹（AI测评网站）签约AI博主，持续关注人工智能前沿技术、科技创业与人文文化领域。通过产品测评、行业观察、活动报道和观点文章，将复杂的AI概念转化为清晰、易读且具有个人视角的内容。'],
+      ['内容方向', '科技内容主要涵盖AI产品测评、OPC、大模型、AI Native、世界模型、AIGC应用及人工智能行业趋势；科创内容聚焦复旦科创活动、创业项目路演、YC创业生态、投融资动态及青年创业者故事；人文内容涉及应用心理学、个体成长、电影评论及书影音分享等方向。'],
+      ['个人职责', '独立负责公众号定位、内容规划、前沿资讯追踪、选题策划、资料研究、产品体验、文章撰写、采访整理、图片制作、版式设计、标题优化、内容发布及阅读数据复盘。针对AI专业概念进行资料查证与通俗化表达，并结合产品体验、行业案例和个人观察完成深度内容创作。'],
+      ['使用软件', 'Adobe Photoshop、Adobe Illustrator、Fabrie、秀米、Midjourney、ChatGPT'],
+      ['运营成果', '完成多篇AI产品测评、前沿技术观察、科创活动报道、创业路演分析、心理学科普及电影分享文章，逐步建立兼具科技敏感度与人文表达的个人内容体系。通过持续追踪AI技术与创业资讯，积累了科技内容研究、产品分析、深度写作、采访整理和新媒体运营经验。']
     ]
-  },
-  'bilibili-video': {
-    title: '哔哩哔哩 · 爆款视频',
-    type: 'MEDIA / BILIBILI',
-    sections: [['作品素材待补充', '等你发来想展示的哔哩哔哩视频链接或封面后，这里会整理成可直接打开的作品列表。']]
-  },
-  'xiaohongshu-note': {
-    title: '小红书 · 爆款笔记',
-    type: 'MEDIA / XIAOHONGSHU',
-    sections: [['作品素材待补充', '等你发来想展示的小红书笔记链接或截图后，这里会整理成可直接打开的作品列表。']]
   },
   'wechat-article': {
     title: '微信公众号 · 爆款文章',
     type: 'MEDIA / WECHAT',
-    sections: [['作品素材待补充', '等你发来想展示的公众号文章链接后，这里会整理成可直接打开的作品列表。']]
+    sections: [['精选文章', '八篇文章已整理为可点击的封面卡片。微信侧暂时要求环境验证，现使用序号作为临时标题；你发送文章标题或封面后即可原样替换。']],
+    articles: [
+      ['公众号文章 01', 'https://mp.weixin.qq.com/s/07TYbQ6aKJ_FYveedpFbBw'],
+      ['公众号文章 02', 'https://mp.weixin.qq.com/s/fHYHt6T2LwkAD0Q95UHUXw'],
+      ['公众号文章 03', 'https://mp.weixin.qq.com/s/ut_6JTZ82FFYYGsU1fInng'],
+      ['公众号文章 04', 'https://mp.weixin.qq.com/s/9trIegYvCL5S7D-RKSXgKw'],
+      ['公众号文章 05', 'https://mp.weixin.qq.com/s/JVdDJvb1dgerc7ERSJn2BA'],
+      ['公众号文章 06', 'https://mp.weixin.qq.com/s/adBVl8Fv0FqMaJojYG-6hg'],
+      ['公众号文章 07', 'https://mp.weixin.qq.com/s/rpj-7k0ck4EYgKL1cnZYTw'],
+      ['公众号文章 08', 'https://mp.weixin.qq.com/s/qCTfWeVhQUyNHywrwpyQqw']
+    ].map(([title, href]) => ({ title, href, cover: wechatLogoUrl }))
   }
 }
 document.querySelectorAll('[data-media-detail]').forEach((button) => button.addEventListener('click', (event) => {
@@ -340,7 +342,8 @@ function openPortfolioDetail(detail) {
   document.querySelector('#detail-title').textContent = detail.title
   document.querySelector('#detail-type').textContent = detail.type
   document.querySelector('#detail-kicker').textContent = `${detail.type.replaceAll(' ', '_')}.TXT`
-  document.querySelector('#detail-copy').innerHTML = detail.sections.map(([heading, copy]) => `<section><b>${heading}</b><p>${copy}</p></section>`).join('')
+  const articleCards = detail.articles ? `<div class="article-grid">${detail.articles.map((article) => `<a class="article-card" href="${article.href}" target="_blank" rel="noopener noreferrer"><img src="${article.cover}" alt="${article.title} 封面" /><span>${article.title}</span><b>READ ↗</b></a>`).join('')}</div>` : ''
+  document.querySelector('#detail-copy').innerHTML = detail.sections.map(([heading, copy]) => `<section><b>${heading}</b><p>${copy}</p></section>`).join('') + articleCards
   document.querySelector('#detail-image').hidden = true
   detailDialog.hidden = false
 }
