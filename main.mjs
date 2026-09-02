@@ -4,6 +4,14 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
 import roomModelUrl from './assets/logan-room.glb?url'
 import wechatLogoUrl from './assets/social/handdrawn/8e2b3f2e-1713-4ce6-9887-42dd4efe3714.png?url'
+import wechatArticle01 from './assets/wechat-articles/01.jpg?url'
+import wechatArticle02 from './assets/wechat-articles/02.jpg?url'
+import wechatArticle03 from './assets/wechat-articles/03.jpg?url'
+import wechatArticle04 from './assets/wechat-articles/04.jpg?url'
+import wechatArticle05 from './assets/wechat-articles/05.jpg?url'
+import wechatArticle06 from './assets/wechat-articles/06.jpg?url'
+import wechatArticle07 from './assets/wechat-articles/07.jpg?url'
+import wechatArticle08 from './assets/wechat-articles/08.jpg?url'
 
 const canvas = document.querySelector('#room')
 const loader = document.querySelector('#loader')
@@ -274,17 +282,17 @@ const mediaDetails = {
   'wechat-article': {
     title: '微信公众号 · 爆款文章',
     type: 'MEDIA / WECHAT',
-    sections: [['精选文章', '八篇文章已整理为可点击的封面卡片。微信侧暂时要求环境验证，现使用序号作为临时标题；你发送文章标题或封面后即可原样替换。']],
+    sections: [['精选文章', '八篇文章已整理为可点击的封面卡片。']],
     articles: [
-      ['公众号文章 01', 'https://mp.weixin.qq.com/s/07TYbQ6aKJ_FYveedpFbBw'],
-      ['公众号文章 02', 'https://mp.weixin.qq.com/s/fHYHt6T2LwkAD0Q95UHUXw'],
-      ['公众号文章 03', 'https://mp.weixin.qq.com/s/ut_6JTZ82FFYYGsU1fInng'],
-      ['公众号文章 04', 'https://mp.weixin.qq.com/s/9trIegYvCL5S7D-RKSXgKw'],
-      ['公众号文章 05', 'https://mp.weixin.qq.com/s/JVdDJvb1dgerc7ERSJn2BA'],
-      ['公众号文章 06', 'https://mp.weixin.qq.com/s/adBVl8Fv0FqMaJojYG-6hg'],
-      ['公众号文章 07', 'https://mp.weixin.qq.com/s/rpj-7k0ck4EYgKL1cnZYTw'],
-      ['公众号文章 08', 'https://mp.weixin.qq.com/s/qCTfWeVhQUyNHywrwpyQqw']
-    ].map(([title, href]) => ({ title, href, cover: wechatLogoUrl }))
+      ['我的使用说明书', 'https://mp.weixin.qq.com/s/07TYbQ6aKJ_FYveedpFbBw', wechatArticle01],
+      ['复旦科创——F-LAB天才少年营选拔日', 'https://mp.weixin.qq.com/s/fHYHt6T2LwkAD0Q95UHUXw', wechatArticle02],
+      ['大模型突然“开窍”，到底发生了什么？——涌现能力，这个改变了整个AI格局的概念', 'https://mp.weixin.qq.com/s/ut_6JTZ82FFYYGsU1fInng', wechatArticle03],
+      ['AI Native 的分水岭：Claude 已经“进群”了，你的公司还停留在“单人模式”吗？', 'https://mp.weixin.qq.com/s/9trIegYvCL5S7D-RKSXgKw', wechatArticle04],
+      ['SIFF28，上影节在电影院延长了三倍生命', 'https://mp.weixin.qq.com/s/JVdDJvb1dgerc7ERSJn2BA', wechatArticle05],
+      ['李飞飞最新长文，一文讲透“世界模型”的三大流派', 'https://mp.weixin.qq.com/s/adBVl8Fv0FqMaJojYG-6hg', wechatArticle06],
+      ['WAIC路演纪实：复旦F-LAB天才少年如何用硬核科技征服全场', 'https://mp.weixin.qq.com/s/rpj-7k0ck4EYgKL1cnZYTw', wechatArticle07],
+      ['阿里千问开源Qwen3.8-27B模型', 'https://mp.weixin.qq.com/s/qCTfWeVhQUyNHywrwpyQqw', wechatArticle08]
+    ].map(([title, href, cover]) => ({ title, href, cover }))
   }
 }
 document.querySelectorAll('[data-media-detail]').forEach((button) => button.addEventListener('click', (event) => {
