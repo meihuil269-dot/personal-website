@@ -268,11 +268,27 @@ const mediaDetails = {
       ['使用软件', 'Adobe Photoshop、Adobe Illustrator、Fabrie、秀米、Midjourney、ChatGPT。'],
       ['运营成果', '完成多篇 AI 产品测评、前沿技术观察、科创活动报道、创业路演分析、心理学科普及电影分享文章，逐步建立兼具科技敏感度与人文表达的个人内容体系。']
     ]
+  },
+  'bilibili-video': {
+    title: '哔哩哔哩 · 爆款视频',
+    type: 'MEDIA / BILIBILI',
+    sections: [['作品素材待补充', '等你发来想展示的哔哩哔哩视频链接或封面后，这里会整理成可直接打开的作品列表。']]
+  },
+  'xiaohongshu-note': {
+    title: '小红书 · 爆款笔记',
+    type: 'MEDIA / XIAOHONGSHU',
+    sections: [['作品素材待补充', '等你发来想展示的小红书笔记链接或截图后，这里会整理成可直接打开的作品列表。']]
+  },
+  'wechat-article': {
+    title: '微信公众号 · 爆款文章',
+    type: 'MEDIA / WECHAT',
+    sections: [['作品素材待补充', '等你发来想展示的公众号文章链接后，这里会整理成可直接打开的作品列表。']]
   }
 }
 document.querySelectorAll('[data-media-detail]').forEach((button) => button.addEventListener('click', (event) => {
   event.stopPropagation()
-  openPortfolioDetail(mediaDetails[button.dataset.mediaDetail])
+  const detail = mediaDetails[button.dataset.mediaDetail]
+  if (detail) openPortfolioDetail(detail)
 }))
 const portfolioDetails = {
   rongyi: {
