@@ -114,7 +114,7 @@
         <div class="interest-grid">
           <button class="window interest-card reading" data-open-bookshelf type="button"><div class="window-bar"><span>01 / READING</span><b>↗</b></div><div><b>▥</b><h3>电子书架</h3><p>我的精神世界。</p><span>OPEN THE SHELF</span></div></button>
           <button class="window interest-card film" data-open-film type="button"><div class="window-bar"><span>02 / FILM</span><b>↗</b></div><div><b>◒</b><h3>胶片页</h3><p>把看过的电影留在一格一格的光里。</p><span>OPEN THE REEL</span></div></button>
-          <button class="window interest-card art" data-interest="画廊" data-detail="颜色、线条与没有被语言说完的感受。作品将按原始比例进入可放大的画墙。" type="button"><div class="window-bar"><span>03 / DRAWING</span><b>↗</b></div><div><b>✦</b><h3>画廊</h3><p>颜色、线条与没有被语言说完的感受。</p><span>OPEN THE GALLERY</span></div></button>
+          <button class="window interest-card music" data-open-music type="button"><div class="window-bar"><span>03 / MUSIC</span><b>↗</b></div><div><b>◉</b><h3>音乐</h3><p>把喜欢的声音放进一张张黑胶唱片里。</p><span>OPEN THE RECORDS</span></div></button>
           <button class="window interest-card exhibit" data-interest="摄影墙" data-detail="在展厅里收集视角，而不只是打卡。将按城市、时间和展览组织成摄影拼贴。" type="button"><div class="window-bar"><span>04 / EXHIBITIONS</span><b>↗</b></div><div><b>▣</b><h3>摄影墙</h3><p>在展厅里收集视角，而不只是打卡。</p><span>OPEN THE WALL</span></div></button>
         </div>
       </section>
@@ -189,6 +189,34 @@
         </div>
       </div>
     </section>
+    <section class="overlay" id="music-dialog" aria-modal="true" aria-label="音乐黑胶唱片墙" hidden>
+      <div class="window music-window">
+        <div class="window-bar"><span>MY_RECORDS / 17 TRACKS</span><button data-close-music type="button" aria-label="关闭音乐唱片墙">×</button></div>
+        <div class="music-body">
+          <header class="music-header"><p class="eyebrow">MUSIC LOG / PERSONAL ROTATION</p><h2>音乐</h2><p>每一张封面都压在一枚黑胶唱片上。点击唱片，去听此刻正在循环的声音。</p></header>
+          <div class="record-grid" aria-label="音乐黑胶唱片墙">
+            <a class="record-card" href="https://163cn.tv/be9m23gK" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/01-paprika.jpg" loading="lazy" alt="パプリカ 红辣椒封面" /><span class="record-label"><b>パプリカ / 红辣椒</b><small>Foorin</small></span></a>
+            <a class="record-card" href="https://y.music.163.com/m/song?fx-wechatnew=t1&amp;fx-wxqd=&amp;fx-wordtest=&amp;id=20744075&amp;PlayerStyles_SynchronousSharing=t3&amp;H5_DownloadVIPGift=&amp;uct2=8fW1GqN%2Baj6eEd6Q1vGnhA%3D%3D&amp;playerUIModeId=76001&amp;app_version=9.5.70&amp;dlt=0846" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/02-amelie.jpg" loading="lazy" alt="La valse d'Amélie 封面" /><span class="record-label"><b>La valse d'Amélie</b><small>Yann Tiersen</small></span></a>
+            <a class="record-card" href="https://y.music.163.com/m/song?fx-wechatnew=t1&amp;fx-wxqd=&amp;fx-wordtest=&amp;id=1806516145&amp;PlayerStyles_SynchronousSharing=t3&amp;H5_DownloadVIPGift=&amp;fx-listentest=t3&amp;uct2=8fW1GqN%2Baj6eEd6Q1vGnhA%3D%3D&amp;app_version=9.5.70&amp;dlt=0846" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/03-human-guide.jpg" loading="lazy" alt="人间指南封面" /><span class="record-label"><b>人间指南</b><small>陈婧霏</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9oq4jc" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/04-result.jpg" loading="lazy" alt="结果论封面" /><span class="record-label"><b>결과론 / 结果论</b><small>Choco And Vanilla</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9oARI5" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/05-milk-cookies.jpg" loading="lazy" alt="Milk and Cookies 封面" /><span class="record-label"><b>Milk and Cookies</b><small>Melanie Martinez</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9pzLjK" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/06-gotta-be.jpg" loading="lazy" alt="Gotta Be A Reason 封面" /><span class="record-label"><b>Gotta Be A Reason</b><small>Alec Benjamin</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9pPc8z" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/07-redbone.jpg" loading="lazy" alt="Redbone 封面" /><span class="record-label"><b>Redbone</b><small>Childish Gambino</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9pBa6T" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/08-diet-mountain-dew.jpg" loading="lazy" alt="Diet Mountain Dew 封面" /><span class="record-label"><b>Diet Mountain Dew</b><small>Lana Del Rey</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9p2uI4" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/09-namiyosete.jpg" loading="lazy" alt="波よせて封面" /><span class="record-label"><b>波よせて / 随波逐流</b><small>クラムボン</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9qc78G" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/10-sisyphus.jpg" loading="lazy" alt="Sisyphus 封面" /><span class="record-label"><b>Sisyphus</b><small>Andrew Bird</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9p098j" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/11-mr-johnson.jpg" loading="lazy" alt="Mr Johnson 封面" /><span class="record-label"><b>Mr Johnson</b><small>Jain</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9qnRQu" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/12-suisei.jpg" loading="lazy" alt="水星 Suisei 封面" /><span class="record-label"><b>水星 / Suisei</b><small>ラブリーサマーちゃん</small></span></a>
+            <a class="record-card" href="https://y.music.163.com/m/song?fx-wechatnew=t1&amp;fx-wxqd=&amp;fx-wordtest=&amp;id=460043748&amp;PlayerStyles_SynchronousSharing=t3&amp;fx-listentest=t3&amp;H5_DownloadVIPGift=&amp;uct2=8fW1GqN%2Baj6eEd6Q1vGnhA%3D%3D&amp;playerUIModeId=76001&amp;app_version=9.5.70&amp;dlt=0846" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/13-battle-symphony.jpg" loading="lazy" alt="Battle Symphony 封面" /><span class="record-label"><b>Battle Symphony</b><small>Linkin Park</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9qAVCS" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/14-wings.jpg" loading="lazy" alt="翅膀封面" /><span class="record-label"><b>날개 / 翅膀</b><small>KREAM</small></span></a>
+            <a class="record-card" href="https://y.music.163.com/m/song?fx-wechatnew=t1&amp;fx-wxqd=&amp;fx-wordtest=&amp;id=406072143&amp;PlayerStyles_SynchronousSharing=t3&amp;fx-listentest=t3&amp;H5_DownloadVIPGift=&amp;uct2=8fW1GqN%2Baj6eEd6Q1vGnhA%3D%3D&amp;playerUIModeId=76001&amp;app_version=9.5.70&amp;dlt=0846" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/15-moon-thief.jpg" loading="lazy" alt="偷月亮的人封面" /><span class="record-label"><b>偷月亮的人</b><small>后海大鲨鱼</small></span></a>
+            <a class="record-card" href="https://163cn.tv/be9qxxsa" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/16-loser.jpg" loading="lazy" alt="LOSER 封面" /><span class="record-label"><b>LOSER</b><small>米津玄師</small></span></a>
+            <a class="record-card" href="https://y.music.163.com/m/song?fx-wechatnew=t1&amp;fx-wxqd=&amp;fx-wordtest=&amp;id=1435828582&amp;PlayerStyles_SynchronousSharing=t3&amp;fx-listentest=t3&amp;H5_DownloadVIPGift=&amp;uct2=8fW1GqN%2Baj6eEd6Q1vGnhA%3D%3D&amp;playerUIModeId=76001&amp;app_version=9.5.70&amp;dlt=0846" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/17-empty-love.jpg" loading="lazy" alt="Empty Love 封面" /><span class="record-label"><b>Empty Love</b><small>Lulleaux / Kid Princess</small></span></a>
+          </div>
+          <button class="pixel-button music-back" data-close-music type="button">BACK <b>←</b></button>
+        </div>
+      </div>
+    </section>
     <section class="overlay" id="detail-dialog" aria-modal="true" aria-label="内容详情" hidden><div class="window detail-window"><div class="window-bar"><span id="detail-kicker">DETAILS.TXT</span><button data-close-detail type="button" aria-label="关闭详情">×</button></div><div class="detail-body"><p class="eyebrow" id="detail-type">ARCHIVE</p><h2 id="detail-title"></h2><div class="detail-content"><div id="detail-copy"></div><img id="detail-image" class="detail-partner-photo" src="./assets/partner-polaroid.png" alt="陈璐与姐姐博雅的拍立得合影" hidden /></div><button class="pixel-button" data-close-detail type="button">BACK <b>←</b></button></div></div></section>
     <div class="loader" id="loader" role="status"><div><strong>GRACE.</strong><span id="loader-copy">LOADING ROOM</span><i></i></div></div>
     <p class="fallback" id="fallback" hidden>浏览器暂不支持 WebGL，请使用最新版 Chrome、Safari 或 Edge 打开。</p>
@@ -244,6 +272,12 @@
         })
         document.querySelectorAll('[data-close-film]').forEach((button) => button.addEventListener('click', () => {
           document.querySelector('#film-dialog').hidden = true
+        }))
+        document.querySelector('[data-open-music]').addEventListener('click', () => {
+          document.querySelector('#music-dialog').hidden = false
+        })
+        document.querySelectorAll('[data-close-music]').forEach((button) => button.addEventListener('click', () => {
+          document.querySelector('#music-dialog').hidden = true
         }))
         const localMedia = {
           bilibili: ['哔哩哔哩 · 影视内容创作与账号运营', [['账号定位', '哔哩哔哩影视区UP主，主要围绕电影、电视剧、角色人物和流行文化进行视频创作。通过影视素材重组、音乐设计与情绪化叙事，探索影视内容的二次表达，逐步形成具有个人审美与情绪感染力的创作风格。'], ['内容方向', '内容涵盖影视混剪、人物群像、角色解析、剧情二次创作、日常vlog及AIGC影像实验等。根据影视热点、人物特征和用户兴趣完成选题策划，并通过画面、台词、音乐与剪辑节奏的组合，增强内容的叙事性和传播力。'], ['个人职责', '独立负责账号定位、选题策划、影视素材收集与筛选、脚本和文案撰写、视频剪辑、音乐选择、字幕设计、画面调色、特效包装、封面制作、标题优化、内容发布及数据复盘。根据播放量、完播率、点赞、投币、收藏和评论等数据持续调整内容结构与创作方向。'], ['使用软件', 'Adobe Premiere、Adobe After Effects、Adobe Photoshop、剪映、Midjourney、即梦、Lovart、Tapnow'], ['运营成果', '累计发布约300条视频；账号粉丝数量1000+，视频累计播放量超过300万。通过长期稳定的内容输出，积累了影视内容策划、视听语言表达、热点捕捉、视频包装及平台运营经验。'], ['核心数据', '300条视频｜200+独立剪辑｜1000+粉丝｜300万+累计播放量']]],

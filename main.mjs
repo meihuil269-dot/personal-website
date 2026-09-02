@@ -117,6 +117,7 @@ const botDialog = document.querySelector('#bot-dialog')
 const detailDialog = document.querySelector('#detail-dialog')
 const bookshelfDialog = document.querySelector('#bookshelf-dialog')
 const filmDialog = document.querySelector('#film-dialog')
+const musicDialog = document.querySelector('#music-dialog')
 const messages = document.querySelector('.messages')
 const botInput = document.querySelector('.bot-form input')
 const botAnswers = {
@@ -227,7 +228,9 @@ document.querySelector('[data-open-bookshelf]').addEventListener('click', () => 
 document.querySelectorAll('[data-close-bookshelf]').forEach((button) => button.addEventListener('click', () => { bookshelfDialog.hidden = true }))
 document.querySelector('[data-open-film]').addEventListener('click', () => { filmDialog.hidden = false })
 document.querySelectorAll('[data-close-film]').forEach((button) => button.addEventListener('click', () => { filmDialog.hidden = true }))
-document.querySelectorAll('.interest-card:not([data-open-bookshelf]):not([data-open-film])').forEach((card) => card.addEventListener('click', () => openDetail(card.dataset.interest, 'OFF THE CLOCK', card.dataset.detail)))
+document.querySelector('[data-open-music]').addEventListener('click', () => { musicDialog.hidden = false })
+document.querySelectorAll('[data-close-music]').forEach((button) => button.addEventListener('click', () => { musicDialog.hidden = true }))
+document.querySelectorAll('.interest-card:not([data-open-bookshelf]):not([data-open-film]):not([data-open-music])').forEach((card) => card.addEventListener('click', () => openDetail(card.dataset.interest, 'OFF THE CLOCK', card.dataset.detail)))
 const companyDetails = {
   about: {
     title: '我的团队 · 量元涌现',

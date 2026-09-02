@@ -260,3 +260,35 @@
   .hero-copy-notes { display:none; }
   .hero-copy-motto { padding-top:7px; font-size:7px; }
 }
+
+/* Music archive: sleeves overlap tactile black-vinyl discs. */
+.music .window-bar { background:#cab9db; }
+.music-window { width:min(1100px,100%); max-height:calc(100svh - 48px); overflow:auto; }
+.music-body { padding:24px; background:#f8f69c; }
+.music-header { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:6px 34px; align-items:end; margin:0 0 22px; }
+.music-header .eyebrow,.music-header h2 { grid-column:1; }
+.music-header .eyebrow { margin:0; color:var(--orange); font:8px var(--pixel); }
+.music-header h2 { margin:0; font:clamp(25px,3vw,42px)/1.12 var(--pixel); letter-spacing:-.08em; }
+.music-header>p:last-child { grid-column:2; grid-row:1 / span 2; align-self:center; margin:0; font-size:13px; line-height:1.65; }
+.record-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px 16px; padding:19px; border:2px solid var(--line); background:#253324; box-shadow:5px 5px 0 rgba(38,56,43,.24); }
+.record-card { position:relative; display:grid; min-width:0; min-height:222px; align-content:start; padding:9px 4px 0; color:#fff7ce; text-decoration:none; isolation:isolate; }
+.record-disc { position:absolute; z-index:-1; top:15px; right:2px; width:78%; aspect-ratio:1; border:2px solid #0c120d; border-radius:50%; background:repeating-radial-gradient(circle at center,#2e3630 0 2px,#111713 3px 5px,#29342d 6px 8px); box-shadow:4px 5px 0 rgba(0,0,0,.36); transition:transform .24s ease; }
+.record-disc:after { position:absolute; inset:31%; border:2px solid #151b16; border-radius:50%; background:#d27762; content:""; box-shadow:inset 0 0 0 5px #f8f69c; }
+.record-card img { position:relative; z-index:1; display:block; width:72%; aspect-ratio:1; object-fit:cover; border:2px solid #f8f69c; background:var(--paper); box-shadow:3px 3px 0 rgba(0,0,0,.42); transition:transform .24s ease,filter .24s ease; }
+.record-label { position:relative; z-index:2; display:grid; gap:4px; width:92%; margin-top:10px; }
+.record-label b { font:9px/1.4 var(--pixel); letter-spacing:-.045em; text-wrap:pretty; }
+.record-label small { min-height:16px; color:#d7e796; font:10px/1.4 var(--sans); }
+.record-card:hover img,.record-card:focus-visible img { transform:translate(-4px,-4px) rotate(-2deg); filter:saturate(1.12) contrast(1.03); }
+.record-card:hover .record-disc,.record-card:focus-visible .record-disc { transform:translateX(7px) rotate(18deg); }
+.record-card:focus-visible { outline:2px solid var(--lime); outline-offset:4px; }
+.music-back { margin-top:22px; }
+@media (max-width:760px) {
+  .music-body { padding:16px; }
+  .music-header { grid-template-columns:1fr; gap:7px; margin-bottom:17px; }
+  .music-header .eyebrow,.music-header h2,.music-header>p:last-child { grid-column:1; grid-row:auto; }
+  .music-header>p:last-child { font-size:12px; }
+  .record-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:17px 12px; padding:14px 12px; }
+  .record-card { min-height:204px; }
+  .record-label b { font-size:8px; }
+  .record-label small { font-size:9px; }
+}
