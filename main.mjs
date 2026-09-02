@@ -115,6 +115,7 @@ gltfLoader.load(
 
 const botDialog = document.querySelector('#bot-dialog')
 const detailDialog = document.querySelector('#detail-dialog')
+const bookshelfDialog = document.querySelector('#bookshelf-dialog')
 const messages = document.querySelector('.messages')
 const botInput = document.querySelector('.bot-form input')
 const botAnswers = {
@@ -221,7 +222,9 @@ function openDetail(title, type, copy, image = false) {
 document.querySelectorAll('[data-close-detail]').forEach((button) => button.addEventListener('click', () => { detailDialog.hidden = true }))
 document.querySelectorAll('.timeline article').forEach((article) => article.addEventListener('click', () => openDetail(article.querySelector('h3').textContent, article.dataset.type.toUpperCase(), article.dataset.detail)))
 document.querySelectorAll('.folder-card').forEach((card) => card.addEventListener('click', () => openDetail(card.querySelector('span').textContent, card.dataset.workType.toUpperCase(), card.dataset.detail)))
-document.querySelectorAll('.interest-card').forEach((card) => card.addEventListener('click', () => openDetail(card.dataset.interest, 'OFF THE CLOCK', card.dataset.detail)))
+document.querySelector('[data-open-bookshelf]').addEventListener('click', () => { bookshelfDialog.hidden = false })
+document.querySelectorAll('[data-close-bookshelf]').forEach((button) => button.addEventListener('click', () => { bookshelfDialog.hidden = true }))
+document.querySelectorAll('.interest-card:not([data-open-bookshelf])').forEach((card) => card.addEventListener('click', () => openDetail(card.dataset.interest, 'OFF THE CLOCK', card.dataset.detail)))
 const companyDetails = {
   about: {
     title: '我的团队 · 量元涌现',

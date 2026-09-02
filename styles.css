@@ -181,6 +181,25 @@
 .hackathon-gallery-grid img { display:block; width:100%; height:100%; object-fit:cover; }
 @media (max-width:760px) { .gallery-body { padding:16px; }.gallery-body header>p:last-child { font-size:13px; }.hackathon-gallery-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; } }
 
+/* A real reading archive: book covers rest on wooden pixel shelves, grouped by the way they shape a worldview. */
+.bookshelf-window { width:min(1100px,100%); max-height:calc(100svh - 48px); overflow:auto; }
+.bookshelf-body { padding:24px; background:#f8f69c; }
+.bookshelf-header { display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:6px 32px; align-items:end; margin:0 0 24px; }
+.bookshelf-header .eyebrow,.bookshelf-header h2 { grid-column:1; }
+.bookshelf-header .eyebrow { margin:0; color:var(--orange); font:8px var(--pixel); }
+.bookshelf-header h2 { margin:0; font:clamp(25px,3vw,42px)/1.12 var(--pixel); letter-spacing:-.08em; }
+.bookshelf-header>p:last-child { grid-column:2; grid-row:1 / span 2; align-self:center; margin:0; font-size:13px; line-height:1.65; }
+.bookshelf-groups { display:grid; gap:20px; }
+.shelf-section { padding:13px 14px 15px; border:2px solid var(--line); background:linear-gradient(180deg,#b78a56 0 34px,#765235 34px 100%); box-shadow:4px 4px 0 rgba(38,56,43,.22); }
+.shelf-section h3 { margin:0 0 13px; color:var(--paper); font:8px/1.4 var(--pixel); text-shadow:1px 1px 0 rgba(38,56,43,.42); }
+.shelf-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(92px,1fr)); align-items:end; gap:10px 8px; padding:12px 10px 18px; border:2px solid rgba(38,56,43,.35); background:repeating-linear-gradient(to bottom,rgba(255,247,206,.13) 0 162px,#4d3323 162px 171px),linear-gradient(90deg,#835b3b,#9e7047 53%,#835b3b); }
+.shelf-row figure { min-width:0; display:grid; align-content:end; gap:7px; margin:0; }
+.shelf-row img { display:block; width:100%; aspect-ratio:2 / 3; object-fit:cover; border:2px solid var(--line); background:var(--paper); box-shadow:3px 3px 0 rgba(38,56,43,.48); transition:transform .18s ease,box-shadow .18s ease; }
+.shelf-row figure:hover img { transform:translate(-2px,-3px) rotate(-1deg); box-shadow:5px 6px 0 var(--line); }
+.shelf-row figcaption { min-height:30px; color:var(--paper); font:10px/1.35 var(--sans); text-align:center; text-wrap:pretty; text-shadow:1px 1px 0 rgba(38,56,43,.72); }
+.bookshelf-back { margin-top:22px; }
+@media (max-width:760px) { .bookshelf-body { padding:16px; }.bookshelf-header { grid-template-columns:1fr; gap:7px; margin-bottom:17px; }.bookshelf-header .eyebrow,.bookshelf-header h2,.bookshelf-header>p:last-child { grid-column:1; grid-row:auto; }.bookshelf-header>p:last-child { font-size:12px; }.shelf-section { padding:11px 10px 12px; }.shelf-row { grid-template-columns:repeat(auto-fit,minmax(76px,1fr)); gap:9px 7px; padding:10px 8px 15px; }.shelf-row figcaption { min-height:28px; font-size:9px; } }
+
 /* Third desktop page: direct portfolio viewing gives the imagery, not folder icons, the leading role. */
 .portfolio-window { position:relative; z-index:1; width:min(1080px,100%); margin:auto; transform:rotate(.2deg); }
 .portfolio-window>.window-bar span:last-child { font:7px var(--pixel); opacity:.62; }
