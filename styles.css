@@ -208,7 +208,7 @@
 .film-header .eyebrow { margin:0; color:var(--orange); font:8px var(--pixel); }
 .film-header h2 { margin:0; font:clamp(25px,3vw,42px)/1.12 var(--pixel); letter-spacing:-.08em; }
 .film-header>p:last-child { grid-column:2; grid-row:1 / span 2; align-self:center; margin:0; font-size:13px; line-height:1.65; }
-.filmstrip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:9px; padding:17px 13px; border:2px solid var(--line); background:#1c281d; box-shadow:5px 5px 0 rgba(38,56,43,.24); }
+.filmstrip { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:7px; padding:14px 11px; border:2px solid var(--line); background:#1c281d; box-shadow:5px 5px 0 rgba(38,56,43,.24); }
 .film-frame { position:relative; display:grid; gap:7px; min-width:0; margin:0; padding:14px 8px 15px; border:2px solid #1c281d; background:#253324; }
 .film-frame:before,.film-frame:after { position:absolute; right:6px; left:6px; height:5px; content:""; background:repeating-linear-gradient(90deg,#f8f69c 0 10px,transparent 10px 17px); opacity:.96; }
 .film-frame:before { top:4px; }.film-frame:after { bottom:4px; }
@@ -216,7 +216,7 @@
 .film-frame:hover img { transform:translateY(-3px); filter:saturate(1.12) contrast(1.04); }
 .film-frame figcaption { position:relative; z-index:1; min-height:27px; margin:0; color:#fff7ce; font:10px/1.35 var(--sans); text-align:center; text-shadow:1px 1px 0 rgba(0,0,0,.5); }
 .film-back { margin-top:22px; }
-@media (max-width:760px) { .film-body { padding:16px; }.film-header { grid-template-columns:1fr; gap:7px; margin-bottom:17px; }.film-header .eyebrow,.film-header h2,.film-header>p:last-child { grid-column:1; grid-row:auto; }.film-header>p:last-child { font-size:12px; }.filmstrip { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; padding:12px 9px; }.film-frame { padding:13px 7px 14px; }.film-frame figcaption { min-height:24px; font-size:9px; } }
+@media (max-width:760px) { .film-body { padding:16px; }.film-header { grid-template-columns:1fr; gap:7px; margin-bottom:17px; }.film-header .eyebrow,.film-header h2,.film-header>p:last-child { grid-column:1; grid-row:auto; }.film-header>p:last-child { font-size:12px; }.filmstrip { grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; padding:12px 9px; }.film-frame { padding:13px 7px 14px; }.film-frame figcaption { min-height:24px; font-size:9px; } }
 
 /* Third desktop page: direct portfolio viewing gives the imagery, not folder icons, the leading role. */
 .portfolio-window { position:relative; z-index:1; width:min(1080px,100%); margin:auto; transform:rotate(.2deg); }
