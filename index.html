@@ -124,7 +124,7 @@
           <button class="window interest-card reading" data-open-bookshelf type="button"><div class="window-bar"><span>01 / READING</span><b>↗</b></div><div><b>▥</b><h3>电子书架</h3><p>我的精神世界。</p><span>OPEN THE SHELF</span></div></button>
           <button class="window interest-card film" data-open-film type="button"><div class="window-bar"><span>02 / FILM</span><b>↗</b></div><div><b>◒</b><h3>胶片页</h3><p>把看过的电影留在一格一格的光里。</p><span>OPEN THE REEL</span></div></button>
           <button class="window interest-card music" data-open-music type="button"><div class="window-bar"><span>03 / MUSIC</span><b>↗</b></div><div><b>◉</b><h3>音乐</h3><p>把喜欢的声音放进一张张黑胶唱片里。</p><span>OPEN THE RECORDS</span></div></button>
-          <button class="window interest-card exhibit" data-interest="摄影墙" data-detail="在展厅里收集视角，而不只是打卡。将按城市、时间和展览组织成摄影拼贴。" type="button"><div class="window-bar"><span>04 / EXHIBITIONS</span><b>↗</b></div><div><b>▣</b><h3>摄影墙</h3><p>在展厅里收集视角，而不只是打卡。</p><span>OPEN THE WALL</span></div></button>
+          <button class="window interest-card exhibit" data-open-photo-wall type="button"><div class="window-bar"><span>04 / PHOTO WALL</span><b>↗</b></div><div><b>▣</b><h3>照片墙</h3><p>分享我的生活：看展、电影、徒步、大自然与看海。</p><span>OPEN THE WALL</span></div></button>
         </div>
       </section>
 
@@ -223,6 +223,16 @@
             <a class="record-card" href="https://y.music.163.com/m/song?fx-wechatnew=t1&amp;fx-wxqd=&amp;fx-wordtest=&amp;id=1435828582&amp;PlayerStyles_SynchronousSharing=t3&amp;fx-listentest=t3&amp;H5_DownloadVIPGift=&amp;uct2=8fW1GqN%2Baj6eEd6Q1vGnhA%3D%3D&amp;playerUIModeId=76001&amp;app_version=9.5.70&amp;dlt=0846" target="_blank" rel="noopener noreferrer"><span class="record-disc" aria-hidden="true"></span><img src="./assets/music/17-empty-love.jpg" loading="lazy" alt="Empty Love 封面" /><span class="record-label"><b>Empty Love</b><small>Lulleaux / Kid Princess</small></span></a>
           </div>
           <button class="pixel-button music-back" data-close-music type="button">BACK <b>←</b></button>
+        </div>
+      </div>
+    </section>
+    <section class="overlay" id="photo-wall-dialog" aria-modal="true" aria-label="陈璐的照片墙" hidden>
+      <div class="window gallery-window photo-wall-window">
+        <div class="window-bar"><span>MY_LIFE / PHOTO WALL</span><button class="gallery-close" data-close-photo-wall type="button" aria-label="关闭照片墙">×</button></div>
+        <div class="gallery-body">
+          <header><p class="eyebrow">LIFE_ARCHIVE / 114 MOMENTS</p><h2>照片墙</h2><p>分享我在路上的日常：看展、看电影、徒步、走进大自然，也把海边的光和风带回来。</p></header>
+          <div class="life-gallery-grid" id="life-gallery-grid" aria-label="陈璐的生活照片墙"></div>
+          <button class="pixel-button gallery-back" data-close-photo-wall type="button">BACK <b>←</b></button>
         </div>
       </div>
     </section>
@@ -328,6 +338,15 @@
         })
         document.querySelectorAll('[data-close-music]').forEach((button) => button.addEventListener('click', () => {
           document.querySelector('#music-dialog').hidden = true
+        }))
+        const localLifePhotoIds = ['001','002','003','004','005','006','007','008','009','010','011','012','013','014','015','016','017','018','019','020','021','022','023','024','025','026','027','028','029','030','031','032','033','034','035','036','037','038','039','040','041','042','043','044','046','047','048','049','050','051','052','053','054','055','056','057','058','059','060','061','062','063','064','065','066','067','069','071','072','074','075','076','077','078','079','080','081','082','083','084','085','086','087','088','090','091','092','093','094','095','096','097','098','099','100','102','103','104','105','106','107','108','109','111','113','114','115','116','117','118','119','120','121','122']
+        const localLifeGallery = document.querySelector('#life-gallery-grid')
+        localLifeGallery.innerHTML = localLifePhotoIds.map((id) => `<a href="./assets/life-photos/photo-${id}.jpg" target="_blank" rel="noopener noreferrer"><img src="./assets/life-photos/photo-${id}.jpg" loading="lazy" alt="陈璐的生活照片 ${Number(id)}" /></a>`).join('')
+        document.querySelector('[data-open-photo-wall]').addEventListener('click', () => {
+          document.querySelector('#photo-wall-dialog').hidden = false
+        })
+        document.querySelectorAll('[data-close-photo-wall]').forEach((button) => button.addEventListener('click', () => {
+          document.querySelector('#photo-wall-dialog').hidden = true
         }))
         const localMedia = {
           bilibili: ['哔哩哔哩 · 影视内容创作与账号运营', [['账号定位', '哔哩哔哩影视区UP主，主要围绕电影、电视剧、角色人物和流行文化进行视频创作。通过影视素材重组、音乐设计与情绪化叙事，探索影视内容的二次表达，逐步形成具有个人审美与情绪感染力的创作风格。'], ['内容方向', '内容涵盖影视混剪、人物群像、角色解析、剧情二次创作、日常vlog及AIGC影像实验等。根据影视热点、人物特征和用户兴趣完成选题策划，并通过画面、台词、音乐与剪辑节奏的组合，增强内容的叙事性和传播力。'], ['个人职责', '独立负责账号定位、选题策划、影视素材收集与筛选、脚本和文案撰写、视频剪辑、音乐选择、字幕设计、画面调色、特效包装、封面制作、标题优化、内容发布及数据复盘。根据播放量、完播率、点赞、投币、收藏和评论等数据持续调整内容结构与创作方向。'], ['使用软件', 'Adobe Premiere、Adobe After Effects、Adobe Photoshop、剪映、Midjourney、即梦、Lovart、Tapnow'], ['运营成果', '累计发布约300条视频；账号粉丝数量1000+，视频累计播放量超过300万。通过长期稳定的内容输出，积累了影视内容策划、视听语言表达、热点捕捉、视频包装及平台运营经验。'], ['核心数据', '300条视频｜200+独立剪辑｜1000+粉丝｜300万+累计播放量']]],
