@@ -292,3 +292,25 @@
   .record-label b { font-size:8px; }
   .record-label small { font-size:9px; }
 }
+
+/* Homepage music control follows the compact pixel navigation language. */
+.desktop-bar-actions { display:flex; align-items:center; justify-self:end; gap:clamp(12px,1.6vw,21px); min-width:0; }
+.music-toggle { display:inline-flex; align-items:center; gap:6px; min-height:30px; padding:3px 0; border:0; border-bottom:1px solid var(--line); background:transparent; color:var(--ink); font:8px var(--pixel); white-space:nowrap; }
+.music-toggle-icon { color:var(--orange); font:15px/1 var(--sans); transform:translateY(-1px); }
+.music-toggle:hover { color:var(--orange); transform:translateY(-1px); }
+.music-toggle:hover .music-toggle-icon { color:var(--ink); }
+.music-toggle:focus-visible { outline:2px solid var(--orange); outline-offset:4px; }
+.music-toggle[data-state="on"] .music-toggle-icon { animation:music-note-pulse 1.15s steps(2,end) infinite; }
+@keyframes music-note-pulse { 50% { transform:translateY(-2px) rotate(-7deg); } }
+@media (max-width:760px) {
+  .desktop-bar-actions { gap:9px; }
+  .music-toggle { min-height:26px; font-size:7px; }
+  .music-toggle-icon { font-size:12px; }
+}
+@media (max-width:560px) {
+  .music-toggle { border-bottom:0; padding:3px; }
+  .music-toggle #music-toggle-label { display:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .music-toggle[data-state="on"] .music-toggle-icon { animation:none; }
+}

@@ -28,8 +28,17 @@
         <nav aria-label="主导航">
           <a href="#home">HOME</a><a href="#experience">EXPERIENCE</a><a href="#work">WORK</a><a href="#interests">OFF CLOCK</a>
         </nav>
-        <button class="chat-trigger" data-open-contact type="button">TALK TO ME ↗</button>
+        <div class="desktop-bar-actions">
+          <button class="music-toggle" id="music-toggle" type="button" aria-label="播放背景音乐" aria-pressed="false">
+            <span class="music-toggle-icon" aria-hidden="true">♫</span>
+            <span id="music-toggle-label">PLAY MUSIC</span>
+          </button>
+          <button class="chat-trigger" data-open-contact type="button">TALK TO ME ↗</button>
+        </div>
       </header>
+      <audio id="background-music" loop preload="auto">
+        <source src="./assets/audio/09-03.mp3" type="audio/mpeg" />
+      </audio>
 
       <section class="room-stage" id="home" aria-labelledby="home-title">
         <canvas id="room" aria-label="陈璐 Grace 的可交互 3D 小屋"></canvas>
@@ -228,6 +237,47 @@
         const catDoor = document.querySelector('#cat-door')
         const loadingScreen = document.querySelector('#loader')
         let hasEntered = false
+
+        const backgroundMusic = document.querySelector('#background-music')
+        const musicToggle = document.querySelector('#music-toggle')
+        const musicToggleLabel = document.querySelector('#music-toggle-label')
+
+        if (backgroundMusic && musicToggle && musicToggleLabel) {
+          backgroundMusic.volume = 0.34
+
+          const setMusicState = (playing, readyToPlay = false) => {
+            musicToggle.dataset.state = playing ? 'on' : readyToPlay ? 'ready' : 'off'
+            musicToggle.setAttribute('aria-pressed', String(playing))
+            musicToggle.setAttribute('aria-label', playing ? '停止背景音乐' : '播放背景音乐')
+            musicToggleLabel.textContent = playing ? 'MUSIC: ON' : 'PLAY MUSIC'
+          }
+
+          const startMusic = async () => {
+            try {
+              await backgroundMusic.play()
+              setMusicState(true)
+            } catch {
+              // Most browsers require a first interaction before audible autoplay.
+              setMusicState(false, true)
+            }
+          }
+
+          musicToggle.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+              startMusic()
+            } else {
+              backgroundMusic.pause()
+              setMusicState(false, true)
+            }
+          })
+          backgroundMusic.addEventListener('play', () => setMusicState(true))
+          backgroundMusic.addEventListener('pause', () => {
+            if (!backgroundMusic.ended) setMusicState(false, true)
+          })
+
+          setMusicState(false, true)
+          window.addEventListener('load', startMusic, { once: true })
+        }
 
         const enterRoom = () => {
           if (hasEntered) return
