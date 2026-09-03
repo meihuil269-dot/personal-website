@@ -230,7 +230,7 @@
       <div class="window gallery-window photo-wall-window">
         <div class="window-bar"><span>MY_LIFE / PHOTO WALL</span><button class="gallery-close" data-close-photo-wall type="button" aria-label="关闭照片墙">×</button></div>
         <div class="gallery-body">
-          <header><p class="eyebrow">LIFE_ARCHIVE / 114 MOMENTS</p><h2>照片墙</h2><p>分享我在路上的日常：看展、看电影、徒步、走进大自然，也把海边的光和风带回来。</p></header>
+          <header><p class="eyebrow">LIFE_ARCHIVE / 27 MOMENTS</p><h2>照片墙</h2><p>分享我在路上的日常：看展、看电影、徒步、走进大自然，也把海边的光和风带回来。</p></header>
           <div class="life-gallery-grid" id="life-gallery-grid" aria-label="陈璐的生活照片墙"></div>
           <button class="pixel-button gallery-back" data-close-photo-wall type="button">BACK <b>←</b></button>
         </div>
@@ -339,9 +339,9 @@
         document.querySelectorAll('[data-close-music]').forEach((button) => button.addEventListener('click', () => {
           document.querySelector('#music-dialog').hidden = true
         }))
-        const localLifePhotoIds = ['001','002','003','004','005','006','007','008','009','010','011','012','013','014','015','016','017','018','019','020','021','022','023','024','025','026','027','028','029','030','031','032','033','034','035','036','037','038','039','040','041','042','043','044','046','047','048','049','050','051','052','053','054','055','056','057','058','059','060','061','062','063','064','065','066','067','069','071','072','074','075','076','077','078','079','080','081','082','083','084','085','086','087','088','090','091','092','093','094','095','096','097','098','099','100','102','103','104','105','106','107','108','109','111','113','114','115','116','117','118','119','120','121','122']
+        const localLifePhotoIds = Array.from({ length: 27 }, (_, index) => String(index + 1).padStart(3, '0'))
         const localLifeGallery = document.querySelector('#life-gallery-grid')
-        localLifeGallery.innerHTML = localLifePhotoIds.map((id) => `<a href="./assets/life-photos/photo-${id}.jpg" target="_blank" rel="noopener noreferrer"><img src="./assets/life-photos/photo-${id}.jpg" loading="lazy" alt="陈璐的生活照片 ${Number(id)}" /></a>`).join('')
+        localLifeGallery.innerHTML = localLifePhotoIds.map((id) => `<a href="./assets/life-photos-verified/photo-${id}.jpg" target="_blank" rel="noopener noreferrer"><img src="./assets/life-photos-verified/photo-${id}.jpg" loading="lazy" alt="陈璐的生活照片 ${Number(id)}" /></a>`).join('')
         document.querySelector('[data-open-photo-wall]').addEventListener('click', () => {
           document.querySelector('#photo-wall-dialog').hidden = false
         })
